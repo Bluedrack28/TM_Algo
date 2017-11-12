@@ -6,9 +6,12 @@ class Vecteur {
      * @param {*} x Composante x du vecteur 
      * @param {*} y Composante y du vecteur
      */
+
     constructor(x = 0, y = 0) {
+
         this.ComposanteX = x;
         this.ComposanteY = y;
+
     }
 
     getComposanteX() {
@@ -25,6 +28,14 @@ class Vecteur {
 
     }
 
+    /**
+     * Methode static qui renvoie le vecteur inverse de l'originale.
+     */
+
+     static getReverse(vecteur){
+        return new Vecteur(-vecteur.x, -vecteur.y)
+    }
+
     static produitScalaire(vecteur1, vecteur2){
 
         return vecteur1.ComposanteX * vecteur2.ComposanteX + vecteur1.ComposanteY * vecteur2.ComposanteY;
@@ -38,7 +49,7 @@ class Forces extends Vecteur {
 
         super(x, y);
 
-    }
+    }   
         
 }
 
@@ -65,12 +76,27 @@ class Speed extends Vecteur {
 class Objet {
 
     constructor (x, y, masse, speed = new Speed(), forces = {}) {
-        
+
         this.x = x;
         this.y = y;
         this.masse = masse;
         this.speed = speed;
         this.forces = forces;
+
+    }
+
+    /**
+     * Retourne le vecteur entre deux Objets, utile pour les muscles.
+     * Renvoie le vecteur qui commence à l'objet1 et qui finit à l'objet2
+     * @param {*} objet1 
+     * @param {*} objet2 
+     */
+    static getVecteurBetweenTwoObjets(objet1, objet2){
+        
+        let ComposanteX = objet2.x - objet1.x;
+        let ComposanteY = objet2.y - objet1.y;
+        return new Vecteur(ComposanteX, ComposanteY);
+
     }
 
     addForce(force) {
@@ -143,6 +169,7 @@ class Motion {
      * @param {*} power La puissance que peut developper le muscle
      * @param {*} duration Et le temps qu'il mets pour faire le mouvements
      */
+
     constructor(power, duration){
 
         this.power = power;
@@ -163,10 +190,18 @@ class Muscle {
      */
 
     constructor(objet1, objet2, motion = new Motion){
+
+        this.objet1 = objet1;
+        this.objet2 = objet2;
+        this.motion = motion;
+
+    }
+
+    returnForces(){
         
     }
+    
 }
-
 
 class Physique {
 
