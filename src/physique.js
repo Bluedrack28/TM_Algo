@@ -33,7 +33,7 @@ class Vecteur {
      */
 
     static getReverse(vecteur){
-        return new Vecteur(-vecteur.composanteX, -vecteur.composanteY)
+        return new Vecteur(-vecteur.composanteX, -vecteur.composanteY);
     }
 
     static getVecteurBetweenTwoObjets(objet1, objet2){
@@ -130,10 +130,10 @@ class Objet {
     }
     
     removeForceByID(id) {
+        
         this.forces.forEach((force,index) => {
             
             if(force.id === id){
-                console.log(index)
                 this.forces.splice(index,1);
             }
         });
@@ -172,6 +172,10 @@ class Objet {
 
         return this.speed;
 
+    }
+
+    getIntSpeed(){
+        return this.speed.getNorme();
     }
 
     updateSpeed(){
@@ -246,15 +250,17 @@ class Muscle {
     getForces(){
         let vecteur = Vecteur.produit(Vecteur.getVecteurBetweenTwoObjets(objet1,objet2), this.motion.power)
         let force = new MuscleForce(vecteur.composanteX, vecteur.composanteY);
+        
         return force;
     }
 
     setForcesToObjets(){
-        objet1.removeForceByID(this.id);
-        objet2.removeForceByID(this.id);
+        this.objet1.removeForceByID(this.id);
+        this.objet2.removeForceByID(this.id);
         let force = this.getForces();
-        objet1.addForce(force);
-        objet2.addForce(Vecteur.getReverse(force));
+        this.objet1.addForce(force);
+        let force2 = new MuscleForce(Vecteur.getReverse(force).composanteX,Vecteur.getReverse(force).composanteY);
+        this.objet2.addForce(force2);
     }
     
 }
