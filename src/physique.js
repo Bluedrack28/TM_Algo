@@ -175,7 +175,9 @@ class Objet {
     }
 
     getIntSpeed(){
+
         return this.speed.getNorme();
+
     }
 
     updateSpeed(){
@@ -186,11 +188,23 @@ class Objet {
 
     }
 
+
+    /**
+     * Fonction qui update la position des objets.
+     * Si l'objet sont arriver au sol alors l'objet arrete de tomber.
+     */
     updatePosition() {
 
         this.updateSpeed();
+        if(this.y + this.speed.composanteY < 300){
+            
+            
+            this.y += this.speed.composanteY;
+        }else{
+            console.log('stop');
+        }
         this.x += this.speed.composanteX;
-        this.y += this.speed.composanteY;
+        
 
     }
 
