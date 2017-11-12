@@ -32,8 +32,22 @@ class Vecteur {
      * Methode static qui renvoie le vecteur inverse de l'originale.
      */
 
-     static getReverse(vecteur){
-        return new Vecteur(-vecteur.x, -vecteur.y)
+    static getReverse(vecteur){
+        return new Vecteur(-vecteur.composanteX, -vecteur.composanteY)
+    }
+
+    static getVecteurBetweenTwoObjets(objet1, objet2){
+        
+        let composanteX = objet2.x - objet1.x;
+        let composanteY = objet2.y - objet1.y;
+        return new Vecteur(composanteX, composanteY);
+
+    }
+
+    static produit(vecteur, number){
+        let composanteX = vecteur.composanteX * number;
+        let composanteY = vecteur.composanteY * number;
+        return new Vecteur(composanteX, composanteY);
     }
 
     static produitScalaire(vecteur1, vecteur2){
@@ -51,6 +65,15 @@ class Force extends Vecteur {
 
     }   
         
+}
+
+class MuscleForce extends Force {
+
+    constructor(x = 0, y = 0, id = 1) {
+        super(x, y);
+        this.id = id;
+        
+    }  
 }
 
 class Acceleration extends Vecteur {
@@ -75,6 +98,15 @@ class Speed extends Vecteur {
 
 class Objet {
 
+    /**
+     * 
+     * @param {*} x 
+     * @param {*} y 
+     * @param {*} masse 
+     * @param {*} speed 
+     * @param {*} forces 
+     */
+
     constructor (x, y, masse, speed = new Speed(), forces = []) {
 
         this.x = x;
@@ -91,18 +123,20 @@ class Objet {
      * @param {*} objet1 
      * @param {*} objet2 
      */
-    static getVecteurBetweenTwoObjets(objet1, objet2){
-        
-        let composanteX = objet2.x - objet1.x;
-        let composanteY = objet2.y - objet1.y;
-        return new Vecteur(composanteX, composanteY);
-
-    }
-
     addForce(force) {
 
         this.forces.push(force);
 
+    }
+    
+    removeForceByID(id) {
+        this.forces.forEach((force,index) => {
+            
+            if(force.id === id){
+                console.log(index)
+                this.forces.splice(index,1);
+            }
+        });
     }
 
     getForces(){
@@ -114,12 +148,13 @@ class Objet {
     getResultante() {
 
         let vecteurResultant = new Vecteur()
+
         this.forces.forEach(force => {
             vecteurResultant.composanteX += force.composanteX;
             vecteurResultant.composanteY += force.composanteY;
 
         });
-        console.log(vecteurResultant.composanteX, vecteurResultant.composanteY)
+        
         let resultante = new Force(vecteurResultant.composanteX, vecteurResultant.composanteY);
         return resultante;
     }   
@@ -128,7 +163,7 @@ class Objet {
     getAcceleration() {
 
         let resultante = this.getResultante();
-        let acc = new Acceleration( resultante.composanteX * this.masse, resultante.composanteY * this.masse);
+        let acc = new Acceleration( resultante.composanteX / this.masse, resultante.composanteY / this.masse);
         return acc;
 
     }
@@ -182,11 +217,12 @@ class Motion {
         this.duration = duration;
 
     }
-
+    
+    
+    
 }
 
 class Muscle {
-
    
     /**
      * Un muscle connecte toujours deux objets / RoundObjets.
@@ -200,13 +236,37 @@ class Muscle {
         this.objet1 = objet1;
         this.objet2 = objet2;
         this.motion = motion;
-
+        this.id = 1;
     }
 
-    returnForces(){
-        
+    /**
+     * Renvoie un vecteur Force pour l'objet1 par rapport au power
+     * et est egale a l'inverse pour l'objet2.
+     */
+    getForces(){
+        let vecteur = Vecteur.produit(Vecteur.getVecteurBetweenTwoObjets(objet1,objet2), this.motion.power)
+        let force = new MuscleForce(vecteur.composanteX, vecteur.composanteY);
+        return force;
+    }
+
+    setForcesToObjets(){
+        objet1.removeForceByID(this.id);
+        objet2.removeForceByID(this.id);
+        let force = this.getForces();
+        objet1.addForce(force);
+        objet2.addForce(Vecteur.getReverse(force));
     }
     
+}
+
+class Ground {
+
+    constructor(level) {
+
+        this.level = level;
+
+    }
+
 }
 
 class Physique {
