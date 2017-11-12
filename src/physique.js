@@ -222,8 +222,6 @@ class Motion {
 
     }
     
-    
-    
 }
 
 class Muscle {
@@ -232,15 +230,18 @@ class Muscle {
      * Un muscle connecte toujours deux objets / RoundObjets.
      * @param {*} objet1 Premier Objet ou le muscle est connecter.
      * @param {*} objet2 Deuxieme Objet ou le muscle est connecter.
-     * @param {*} motion Est un objet de type Motion qui definie les extention du muscle et ses rétractions.
+     * @param {*} motions Est un objet de type Motion qui definie les extention du muscle et ses rétractions. Le muscle aura deux motion un pour la retractation et un autre pour la dilatiation.
      */
 
-    constructor(objet1, objet2, motion = new Motion){
+    constructor(objet1, objet2, motions = [], longeurMin, longeurMax){
 
         this.objet1 = objet1;
         this.objet2 = objet2;
-        this.motion = motion;
+        this.motions = motions;
+        this.longeurMin = longeurMin;
+        this.longeurMax = longeurMax;
         this.id = 1;
+        this.step = 0;
     }
 
     /**
@@ -248,19 +249,39 @@ class Muscle {
      * et est egale a l'inverse pour l'objet2.
      */
     getForces(){
-        let vecteur = Vecteur.produit(Vecteur.getVecteurBetweenTwoObjets(objet1,objet2), this.motion.power)
+        let facteur = this.motions[this.step].power / this.motions[this.step].duration;
+        console.log(facteur);
+        let vecteur = Vecteur.produit(Vecteur.getVecteurBetweenTwoObjets(this.objet1,this.objet2), facteur);
         let force = new MuscleForce(vecteur.composanteX, vecteur.composanteY);
-        
         return force;
     }
 
     setForcesToObjets(){
         this.objet1.removeForceByID(this.id);
         this.objet2.removeForceByID(this.id);
-        let force = this.getForces();
-        this.objet1.addForce(force);
-        let force2 = new MuscleForce(Vecteur.getReverse(force).composanteX,Vecteur.getReverse(force).composanteY);
-        this.objet2.addForce(force2);
+        if(this.step === 0){
+            if(Vecteur.getVecteurBetweenTwoObjets(this.objet1,this.objet2).getNorme() < this.longeurMin){
+                this.step = 1;
+                this.objet1.speed = new Speed()
+                this.objet2.speed = new Speed()
+            }else{
+                let force = this.getForces();
+                this.objet1.addForce(force);
+                let force2 = new MuscleForce(Vecteur.getReverse(force).composanteX,Vecteur.getReverse(force).composanteY);
+                this.objet2.addForce(force2);
+            }
+        }else{
+            if(Vecteur.getVecteurBetweenTwoObjets(this.objet1,this.objet2).getNorme() > this.longeurMax){
+                this.step = 0;
+                this.objet1.speed = new Speed()
+                this.objet2.speed = new Speed()
+            }else{
+                let force = this.getForces();
+                this.objet2.addForce(force);
+                let force2 = new MuscleForce(Vecteur.getReverse(force).composanteX,Vecteur.getReverse(force).composanteY);
+                this.objet1.addForce(force2);
+            }
+        }
     }
     
 }
