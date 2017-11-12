@@ -9,22 +9,22 @@ class Vecteur {
 
     constructor(x = 0, y = 0) {
 
-        this.ComposanteX = x;
-        this.ComposanteY = y;
+        this.composanteX = x;
+        this.composanteY = y;
 
     }
 
     getComposanteX() {
-        return this.ComposanteX;
+        return this.composanteX;
     }
 
     getComposanteX() {
-        return this.ComposanteX;
+        return this.composanteX;
     }
 
     getNorme() {
 
-        return Math.sqrt(Math.pow(this.ComposanteX, 2) + Math.pow(thi.ComposanteY, 2));
+        return Math.sqrt(Math.pow(this.composanteX, 2) + Math.pow(this.composanteY, 2));
 
     }
 
@@ -38,12 +38,12 @@ class Vecteur {
 
     static produitScalaire(vecteur1, vecteur2){
 
-        return vecteur1.ComposanteX * vecteur2.ComposanteX + vecteur1.ComposanteY * vecteur2.ComposanteY;
+        return vecteur1.composanteX * vecteur2.composanteX + vecteur1.composanteY * vecteur2.composanteY;
 
     }
 }
 
-class Forces extends Vecteur {
+class Force extends Vecteur {
 
     constructor(x = 0, y = 0) {
 
@@ -75,7 +75,7 @@ class Speed extends Vecteur {
 
 class Objet {
 
-    constructor (x, y, masse, speed = new Speed(), forces = {}) {
+    constructor (x, y, masse, speed = new Speed(), forces = []) {
 
         this.x = x;
         this.y = y;
@@ -93,9 +93,9 @@ class Objet {
      */
     static getVecteurBetweenTwoObjets(objet1, objet2){
         
-        let ComposanteX = objet2.x - objet1.x;
-        let ComposanteY = objet2.y - objet1.y;
-        return new Vecteur(ComposanteX, ComposanteY);
+        let composanteX = objet2.x - objet1.x;
+        let composanteY = objet2.y - objet1.y;
+        return new Vecteur(composanteX, composanteY);
 
     }
 
@@ -114,46 +114,52 @@ class Objet {
     getResultante() {
 
         let vecteurResultant = new Vecteur()
-        this.getForces.forEach(force => {
-
-            vecteurResultant.ComposanteX += force.ComposanteX;
-            vecteurResultant.ComposanteY += force.ComposanteX;
+        this.forces.forEach(force => {
+            vecteurResultant.composanteX += force.composanteX;
+            vecteurResultant.composanteY += force.composanteY;
 
         });
-        let Resultane = new Forces(vecteurResultant.ComposanteX, vecteurResultant.ComposanteY);
+        console.log(vecteurResultant.composanteX, vecteurResultant.composanteY)
+        let resultante = new Force(vecteurResultant.composanteX, vecteurResultant.composanteY);
+        return resultante;
     }   
+
     
     getAcceleration() {
 
-        let Resultante = this.getResultante();
-        let Acceleration = new Acceleration( Resultante.ComposanteX * this.masse,
-                                             Resultante.ComposanteY * this.masse);
-        return Acceleration;
+        let resultante = this.getResultante();
+        let acc = new Acceleration( resultante.composanteX * this.masse, resultante.composanteY * this.masse);
+        return acc;
 
     }
 
     getSpeed() {
 
-        return this.Speed;
+        return this.speed;
 
     }
 
     updateSpeed(){
 
-        let Acceleration = this.getAcceleration();
-        this.Speed.ComposanteX += Acceleration.ComposanteX;
-        this.Speed.ComposanteY += Acceleration.ComposanteY;
+        let acceleration = this.getAcceleration();
+        this.speed.composanteX += acceleration.composanteX;
+        this.speed.composanteY += acceleration.composanteY;
+
     }
 
     updatePosition() {
-        
+
+        this.updateSpeed();
+        this.x += this.speed.composanteX;
+        this.y += this.speed.composanteY;
+
     }
 
 }
 
 class RoundObjet extends Objet{
 
-    constructor (x, y, masse, raduis, speed = new Speed(), forces = {}) {
+    constructor (x, y, masse, raduis, speed = new Speed(), forces = []) {
         
         super(x,y,masse,speed,forces);
         this.raduis = raduis;
@@ -205,7 +211,7 @@ class Muscle {
 
 class Physique {
 
-    constructor(objets = {}){
+    constructor(objets = []){
         this.objets = objets;
         
     }
@@ -221,5 +227,4 @@ class Physique {
     }
 
 }
-
-module.exports = Objet;
+//module.exports = Objet;
