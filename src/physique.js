@@ -256,6 +256,12 @@ class Muscle {
         return force;
     }
 
+    returnVecteur() {
+
+        return Vecteur.getVecteurBetweenTwoObjets(this.objet1, this.objet2);
+
+    }
+
     setForcesToObjets(){
         this.objet1.removeForceByID(this.id);
         this.objet2.removeForceByID(this.id);
