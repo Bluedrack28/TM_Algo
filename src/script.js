@@ -3,15 +3,13 @@ let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d')
 let objet1 = new RoundObjet(100, 100, 100, 10);
 let objet2 = new RoundObjet(200, 100, 100, 10);
-let objet3 = new RoundObjet(100, 200, 100, 10);
-let objet4 = new RoundObjet(100, 200, 100, 10);
-objet1.addForce(new Force(0,98.1));
-objet2.addForce(new Force(0,98.1));
-objet3.addForce(new Force(0,98.1));
-//objet4.addForce(new Force(0,+9.81));
-let muscle = new Muscle(objet1, objet2, [new Motion(Math.random()*10,Math.random()*10),new Motion(Math.random()*10,Math.random()*10)],Math.random()*100,Math.random()*100);
-let muscle1 = new Muscle(objet1, objet3, [new Motion(Math.random()*10,Math.random()*10),new Motion(Math.random()*10,Math.random()*10)],Math.random()*100,Math.random()*100);
-let muscle2 = new Muscle(objet2, objet3, [new Motion(Math.random()*10,Math.random()*10),new Motion(Math.random()*10,Math.random()*10)],Math.random()*100,Math.random()*100);
+let objet3 = new RoundObjet(150, 200, 100, 10);
+//objet1.addForce(new Force(0,9.81));
+//objet2.addForce(new Force(0,9.81));
+//objet3.addForce(new Force(0,9.81));
+let muscle = new Muscle(objet1, objet2, [new Motion(1,2),new Motion(1,2)],102,10);
+let muscle1 = new Muscle(objet1, objet3, [new Motion(1,2),new Motion(1,2)],102,10);
+let muscle2 = new Muscle(objet2, objet3, [new Motion(1,2),new Motion(1,2)],10,10);
 //let muscle3 = new Muscle(objet1, objet4, [new Motion(Math.random()*10,Math.random()*10),new Motion(Math.random()*10,Math.random()*10)],Math.random()*100,Math.random()*100);
 function update() {
     muscle.setForcesToObjets();
@@ -20,8 +18,7 @@ function update() {
     objet1.updatePosition();
     objet2.updatePosition();
     objet3.updatePosition();
-    objet4.updatePosition();
-    console.log(objet1.getIntSpeed(), objet2.getIntSpeed() )
+    //console.log(objet1.getIntSpeed(), objet2.getIntSpeed() )
 }
 
 function draw() {

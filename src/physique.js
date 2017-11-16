@@ -114,7 +114,7 @@ class Objet {
         this.masse = masse;
         this.speed = speed;
         this.forces = forces;
-
+        this.muscle = [];
     }
 
     /**
@@ -128,12 +128,14 @@ class Objet {
         this.forces.push(force);
 
     }
-    
+
+    //doit suprimer son anciene force pour l update.
+
     removeForceByID(id) {
         
         this.forces.forEach((force,index) => {
             
-            if(force.id === id){
+            if(id === index){
                 this.forces.splice(index,1);
             }
         });
@@ -201,7 +203,7 @@ class Objet {
             
             this.y += this.speed.composanteY;
         }else{
-            console.log('stop');
+            //console.log('stop');
         }
         this.x += this.speed.composanteX;
         
@@ -255,6 +257,8 @@ class Muscle {
         this.longeurMin = longeurMin;
         this.longeurMax = longeurMax;
         this.id = 1;
+        this.idObjet1;
+        this.idObjet2;
         this.step = 0;
     }
 
@@ -263,11 +267,12 @@ class Muscle {
      * et est egale a l'inverse pour l'objet2.
      */
     getForces(){
-        let facteur = this.motions[this.step].power / this.motions[this.step].duration;
-        console.log(facteur);
+
+        let facteur = 0.5 * this.motions[this.step].power^2 / this.motions[this.step].duration;
         let vecteur = Vecteur.produit(Vecteur.getVecteurBetweenTwoObjets(this.objet1,this.objet2), facteur);
         let force = new MuscleForce(vecteur.composanteX, vecteur.composanteY);
         return force;
+
     }
 
     returnVecteur() {
@@ -277,38 +282,58 @@ class Muscle {
     }
 
     setForcesToObjets(){
-        this.objet1.removeForceByID(this.id);
-        this.objet2.removeForceByID(this.id);
+
+        this.objet1.removeForceByID(this.idObjet1);
+        this.objet2.removeForceByID(this.idObjet2);
+        
         if(this.step === 0){
-            if(Vecteur.getVecteurBetweenTwoObjets(this.objet1,this.objet2).getNorme() < this.longeurMin){
+            
+            if(Vecteur.getVecteurBetweenTwoObjets(this.objet1, this.objet2).getNorme() < this.longeurMin){
+
                 this.step = 1;
                 this.objet1.speed = new Speed()
                 this.objet2.speed = new Speed()
+                //console.log('stop')
+
             }else{
+
                 let force = this.getForces();
                 this.objet1.addForce(force);
-                let force2 = new MuscleForce(Vecteur.getReverse(force).composanteX,Vecteur.getReverse(force).composanteY);
+                this.idObjet1 = this.objet1.getForces().indexOf(force);
+                let force2 = new MuscleForce(Vecteur.getReverse(force).composanteX, Vecteur.getReverse(force).composanteY);
                 this.objet2.addForce(force2);
+                this.idObjet2 = this.objet2.getForces().indexOf(force2);
+
             }
+
         }else{
-            if(Vecteur.getVecteurBetweenTwoObjets(this.objet1,this.objet2).getNorme() > this.longeurMax){
+
+            if(Vecteur.getVecteurBetweenTwoObjets(this.objet1, this.objet2).getNorme() > this.longeurMax){
+
                 this.step = 0;
                 this.objet1.speed = new Speed()
                 this.objet2.speed = new Speed()
+                //console.log('stop')
+
             }else{
+
                 let force = this.getForces();
                 this.objet2.addForce(force);
-                let force2 = new MuscleForce(Vecteur.getReverse(force).composanteX,Vecteur.getReverse(force).composanteY);
-                this.objet1.addForce(force2);
+                this.idObjet2 = this.objet2.getForces().indexOf(force);
+                let force2 = new MuscleForce(Vecteur.getReverse(force).composanteX, Vecteur.getReverse(force).composanteY);
+                this.objet2.addForce(force2);
+                this.idObjet1 = this.objet1.getForces().indexOf(force);
+
             }
         }
+
     }
     
 }
 
 class Ground {
 
-    constructor(level) {
+    constructor(level=0) {
 
         this.level = level;
 
@@ -318,20 +343,33 @@ class Ground {
 
 class Physique {
 
-    constructor(objets = []){
+    constructor(objets = [], ground = new Ground()){
+
         this.objets = objets;
-        
+        this.ground = ground;
+
     }
     
     addObjet(objet) {
+
         this.objets;
+
+    }
+    
+    getObjets(){
+
+        return this.objets
+
     }
 
     updateSystem() {
+
         this.objets.forEach(objet => {
             
         });
+
     }
+    
 
 }
 //module.exports = Objet;
