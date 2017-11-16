@@ -114,7 +114,10 @@ class Objet {
         this.masse = masse;
         this.speed = speed;
         this.forces = forces;
-        this.muscle = [];
+        this.muscleForces = [];
+        
+        this.typeForces = [this.muscleForces, this.forces,];
+
     }
 
     /**
@@ -125,7 +128,7 @@ class Objet {
      */
     addForce(force) {
 
-        this.forces.push(force);
+        this.typeForces[1].push(force);
 
     }
 
@@ -140,21 +143,31 @@ class Objet {
             }
         });
     }
+    
+    removeMuscleForce(){
+
+        this.typeForces[0] = [];
+
+    }
 
     getForces(){
 
-        return this.forces;
+        return this.typeForces.forces;
 
     }
+
+
 
     getResultante() {
 
         let vecteurResultant = new Vecteur()
+        this.typeForces.forEach(type => {
+            type.forEach(force => {
 
-        this.forces.forEach(force => {
-            vecteurResultant.composanteX += force.composanteX;
-            vecteurResultant.composanteY += force.composanteY;
+                vecteurResultant.composanteX += force.composanteX;
+                vecteurResultant.composanteY += force.composanteY;
 
+            });
         });
         
         let resultante = new Force(vecteurResultant.composanteX, vecteurResultant.composanteY);
@@ -196,18 +209,12 @@ class Objet {
      * Si l'objet sont arriver au sol alors l'objet arrete de tomber.
      */
     updatePosition() {
-
+        
         this.updateSpeed();
-        if(this.y + this.speed.composanteY < 300){
-            
-            
-            this.y += this.speed.composanteY;
-        }else{
-            //console.log('stop');
-        }
+        
+        this.y += this.speed.composanteY;
         this.x += this.speed.composanteX;
         
-
     }
 
 }
@@ -249,13 +256,13 @@ class Muscle {
      * @param {*} motions Est un objet de type Motion qui definie les extention du muscle et ses rétractions. Le muscle aura deux motion un pour la retractation et un autre pour la dilatiation.
      */
 
-    constructor(objet1, objet2, motions = [], longeurMin, longeurMax){
+    constructor(objet1, objet2, motions = [], longueurMin, longueurMax){
 
         this.objet1 = objet1;
         this.objet2 = objet2;
         this.motions = motions;
-        this.longeurMin = longeurMin;
-        this.longeurMax = longeurMax;
+        this.longueurMin = longueurMin;
+        this.longueurMax = longueurMax;
         this.id = 1;
         this.idObjet1;
         this.idObjet2;
@@ -266,14 +273,37 @@ class Muscle {
      * Renvoie un vecteur Force pour l'objet1 par rapport au power
      * et est egale a l'inverse pour l'objet2.
      */
-    getForces(){
+    getForce(objet, step){
 
-        let facteur = 0.5 * this.motions[this.step].power^2 / this.motions[this.step].duration;
-        let vecteur = Vecteur.produit(Vecteur.getVecteurBetweenTwoObjets(this.objet1,this.objet2), facteur);
-        let force = new MuscleForce(vecteur.composanteX, vecteur.composanteY);
+        let facteur = 0.5 * this.motions[this.step].power / this.motions[this.step].duration;
+        let vecteur = Vecteur.produit(this.returnVecteur(), facteur);
+        
+        if (this.objet1 == objet) {
+            
+            //let vecteurReverse = Vecteur.getReverse(vecteur);
+
+        } else {
+
+            vecteur = Vecteur.getReverse(vecteur);
+
+        }
+
+        let force;
+
+        if ( step === 0 ) {
+
+            force = new MuscleForce(vecteur.composanteX, vecteur.composanteY);
+
+        } else {
+
+            force = new MuscleForce(-vecteur.composanteX, -vecteur.composanteY);
+        
+        }
         return force;
 
     }
+
+
 
     returnVecteur() {
 
@@ -282,47 +312,34 @@ class Muscle {
     }
 
     setForcesToObjets(){
-
-        this.objet1.removeForceByID(this.idObjet1);
-        this.objet2.removeForceByID(this.idObjet2);
         
         if(this.step === 0){
             
-            if(Vecteur.getVecteurBetweenTwoObjets(this.objet1, this.objet2).getNorme() < this.longeurMin){
+            if(this.returnVecteur().getNorme() < this.longueurMin){
 
                 this.step = 1;
                 this.objet1.speed = new Speed()
                 this.objet2.speed = new Speed()
-                //console.log('stop')
+                console.log('salut');
 
             }else{
-
-                let force = this.getForces();
-                this.objet1.addForce(force);
-                this.idObjet1 = this.objet1.getForces().indexOf(force);
-                let force2 = new MuscleForce(Vecteur.getReverse(force).composanteX, Vecteur.getReverse(force).composanteY);
-                this.objet2.addForce(force2);
-                this.idObjet2 = this.objet2.getForces().indexOf(force2);
-
+                this.objet1.typeForces[0].push(this.getForce(this.objet1, this.step));
+                this.objet2.typeForces[0].push(this.getForce(this.objet2, this.step));
             }
 
         }else{
 
-            if(Vecteur.getVecteurBetweenTwoObjets(this.objet1, this.objet2).getNorme() > this.longeurMax){
+            if(this.returnVecteur().getNorme() > this.longueurMax){
 
                 this.step = 0;
                 this.objet1.speed = new Speed()
                 this.objet2.speed = new Speed()
-                //console.log('stop')
+                
+
 
             }else{
-
-                let force = this.getForces();
-                this.objet2.addForce(force);
-                this.idObjet2 = this.objet2.getForces().indexOf(force);
-                let force2 = new MuscleForce(Vecteur.getReverse(force).composanteX, Vecteur.getReverse(force).composanteY);
-                this.objet2.addForce(force2);
-                this.idObjet1 = this.objet1.getForces().indexOf(force);
+                this.objet1.typeForces[0].push(this.getForce(this.objet1, this.step));
+                this.objet2.typeForces[0].push(this.getForce(this.objet2, this.step));
 
             }
         }
