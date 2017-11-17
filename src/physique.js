@@ -221,7 +221,8 @@ class RoundObjet extends Objet{
     constructor (x, y, masse, raduis, speed = new Speed(), forces = []) {
         
         super(x,y,masse,speed,forces);
-        this.raduis = raduis;
+        this.raduis = Math.sqrt(masse/(Math.PI));
+        //this.raduis = raduis;
 
     }
 
@@ -302,7 +303,6 @@ class Muscle {
     }
 
     setForcesToObjets(){
-        
         if( this.step === 0 ){
             
             if( this.returnVecteur().getNorme() < this.longueurMin ){
@@ -333,10 +333,76 @@ class Muscle {
 
             }
         }
-
     }
     
 }
+
+class Creature {
+
+    constructor (objets = [], muscles = []) {
+        this.objets = objets;
+        this.muscles = muscles
+    }
+    
+    static getRandomCreature () {
+        
+        let objets = [];
+        let objet;
+        let muscles = [];
+        let muscle;
+        for (let i = 0; i < 4; i++) {
+
+            objet = new RoundObjet( Math.random()*100+100,
+                                    Math.random()*100+100,
+                                    Math.random()*1000,
+                                    Math.random()*50);
+            objets.push(objet);
+        }
+        for (let i = 0; i < objets.length - 1 ; i++) {
+            for (let j = i; j < objets.length - 1 ; j++) {
+                
+                if (Math.random() > 0) {
+                    muscle = new Muscle(objets[i],
+                        objets[j+1],
+                        [new Motion(Math.random(),Math.random()),
+                        new Motion(Math.random(),Math.random())],
+                        50,100);
+                    muscles.push(muscle);
+                    console.log(i,j,muscle);
+                }
+                
+
+            }
+        }
+
+        let creature = new Creature(objets, muscles);
+        return creature;
+    
+    }   
+    static alterateCreature(){
+
+    }
+
+    update(){
+        
+        this.objets.forEach(objet => {
+            
+            objet.updatePosition();
+            objet.removeMuscleForce();
+            
+        });
+        this.muscles.forEach(muscle => {
+
+            muscle.setForcesToObjets();
+        
+        });
+
+        
+
+    }
+
+}
+
 
 class Ground {
 
@@ -352,6 +418,7 @@ class Physique {
 
     constructor(objets = [], ground = new Ground()){
 
+        this.muscles = [];
         this.objets = objets;
         this.ground = ground;
 
@@ -371,8 +438,10 @@ class Physique {
 
     updateSystem() {
 
+        
+
         this.objets.forEach(objet => {
-            
+            objet.update();
         });
 
     }
