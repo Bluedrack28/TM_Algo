@@ -366,7 +366,7 @@ class Creature {
                         objets[j+1],
                         [new Motion(Math.random(),Math.random()),
                         new Motion(Math.random(),Math.random())],
-                        50,100);
+                        70,100);
                     muscles.push(muscle);
                 }
 
