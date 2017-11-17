@@ -2,6 +2,8 @@
 let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d')
 let creature = Creature.getRandomCreature();
+let creature1 = Creature.getRandomCreature();
+
 //console.log(creature);
 let objet1 = new RoundObjet(10, 10, 300, 10);
 let objet2 = new RoundObjet(200, 100, 100, 10);
@@ -13,16 +15,18 @@ let muscle2 = new Muscle(objet2, objet3, [new Motion(3,1),new Motion(3,5)],50,10
 
 function update() {
     creature.update();
+    creature1.update();
 
 }
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawCreature(creature);
+    drawCreature(creature, 'red');
+    drawCreature(creature1, 'blue');
 
 
 }
-function drawCreature(creature){
+function drawCreature(creature,color){
 
     creature.muscles.forEach(muscle => {
         
@@ -32,7 +36,7 @@ function drawCreature(creature){
     creature.objets.forEach(objet => {
 
         ctx.beginPath();
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = color;
         ctx.arc(objet.x, objet.y, objet.raduis, 0, 2 * Math.PI)
         ctx.fill();
 

@@ -361,16 +361,14 @@ class Creature {
         for (let i = 0; i < objets.length - 1 ; i++) {
             for (let j = i; j < objets.length - 1 ; j++) {
                 
-                if (Math.random() > 0) {
+                if (Math.random() > 0.3) {
                     muscle = new Muscle(objets[i],
                         objets[j+1],
                         [new Motion(Math.random(),Math.random()),
                         new Motion(Math.random(),Math.random())],
                         50,100);
                     muscles.push(muscle);
-                    console.log(i,j,muscle);
                 }
-                
 
             }
         }
