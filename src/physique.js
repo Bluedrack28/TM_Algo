@@ -414,17 +414,16 @@ class Ground {
 
 class Physique {
 
-    constructor(objets = [], ground = new Ground()){
+    constructor(creatures = [], ground = new Ground()){
 
-        this.muscles = [];
-        this.objets = objets;
+        this.creatures = creatures;
         this.ground = ground;
 
     }
     
-    addObjet(objet) {
+    addCreature(creature) {
 
-        this.objets;
+        this.creatures.push(creature);
 
     }
     
@@ -438,8 +437,8 @@ class Physique {
 
         
 
-        this.objets.forEach(objet => {
-            objet.update();
+        this.creatures.forEach(creature => {
+            creature.update();
         });
 
     }
