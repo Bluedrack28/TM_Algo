@@ -350,7 +350,7 @@ class Creature {
         let objet;
         let muscles = [];
         let muscle;
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 100; i++) {
 
             objet = new RoundObjet( Math.random()*100+100,
                                     Math.random()*100+100,
