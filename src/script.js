@@ -15,7 +15,7 @@ let muscle1 = new Muscle(objet1, objet3, [new Motion(5,2),new Motion(5,1)],30,10
 let muscle2 = new Muscle(objet2, objet3, [new Motion(3,1),new Motion(3,5)],50,100);
 
 function update() {
-    creature.update();
+    //creature.update();
     physique.updateSystem();
     //creature1.update();
 
@@ -51,11 +51,12 @@ function drawVector(objet1,objet2){
     ctx.beginPath();
     ctx.moveTo(objet1.x, objet1.y);
     ctx.lineTo(objet2.x, objet2.y);
-    ctx.lineWidth = 10/(0.1*Vecteur.getVecteurBetweenTwoObjets(objet1,objet2).getNorme()^2+10)+10;
+    ctx.lineWidth = 10/(0.1*Vecteur.getVecteurBetweenTwoObjets(objet1,objet2).getNorme()^2+20)+10;
     ctx.globalAlpha = 0.4
     ctx.strokeSytle = 'blue'
     ctx.stroke();
     ctx.globalAlpha = 1
+    ctx.fill;
 
 }
 
