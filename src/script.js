@@ -25,9 +25,13 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawCreature(creature, 'red');
     //drawCreature(creature1, 'blue');
-
-
+    ctx.beginPath()
+    ctx.lineWidth = 1;
+    ctx.moveTo(0,300);
+    ctx.lineTo(300,300);
+    ctx.stroke();
 }
+
 function drawCreature(creature,color){
 
     creature.muscles.forEach(muscle => {

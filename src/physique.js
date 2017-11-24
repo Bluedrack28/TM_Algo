@@ -12,8 +12,8 @@ class Ground {
 
 class Physique {
 
-    constructor(creatures = [], ground = new Ground()){
-
+    constructor(creatures = [], ground = new Ground(), gAcc = new Acceleration(0,0.05)){
+        this.gAcc = gAcc;
         this.creatures = creatures;
         this.ground = ground;
         this.creatures.forEach(creature => {
@@ -40,8 +40,8 @@ class Physique {
 
             objet.addForce(new Force(
                 0,
-                objet.masse * 1
-            ));
+                objet.masse * this.gAcc.composanteY
+            ), 3);
 
         });
     
@@ -51,23 +51,30 @@ class Physique {
 
         this.creatures.forEach(creature => {
             
-            creature.update();
+            //creature.update();
 
             creature.objets.forEach(objet => {
                 
-                if(objet.y >= this.ground.level){
+                if(objet.y + objet.raduis > this.ground.level){
+                    objet.removeForces();
+                    //let res = objet.getResultante();
+                    objet.speed.composanteY *= -1
+                    objet.speed.composanteX *= -1
+                    
+                    
+                    //objet.addForce(new Force(0, res.composanteY),2);
+                    
 
-                    console.log('ca descend')
+                } else {
 
-                    let res = objet.getResultante();
-                    objet.addForce(new Force(-res.composanteX, -res.composanteY), 2)
-
-                }2
+                    objet.applyGravity(this.gAcc);
+                    
+                }
 
             });
+            creature.update();
         });
-    }
-    
+    } 
 
 }
 //module.exports = Objet;

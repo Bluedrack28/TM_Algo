@@ -20,7 +20,7 @@ class Creature {
                                     Random.getRandomInt(200,1000));
             objets.push(objet);
         }
-
+        
         for (let i = 0; i < objets.length - 1 ; i++) {
             for (let j = i; j < objets.length - 1 ; j++) {
                 
@@ -35,7 +35,7 @@ class Creature {
 
             }
         }
-
+        
         let creature = new Creature(objets, muscles);
         return creature;
     

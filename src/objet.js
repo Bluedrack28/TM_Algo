@@ -18,7 +18,7 @@ class Objet {
         this.forces = forces;
         this.muscleForces = [];
         
-        this.typeForces = [this.muscleForces, this.forces, []];
+        this.typeForces = [this.muscleForces, this.forces, [], []];
 
     }
 
@@ -42,15 +42,29 @@ class Objet {
 
     }
 
+    removeForces(){
+        
+        this.typeForces[0] = [];
+        this.typeForces[1] = [];
+        this.typeForces[2] = [];
+        this.typeForces[3] = [];
+        
+    }
+
     getForces(){
 
         return this.typeForces.forces;
 
     }
 
+    applyGravity(gAcc){
+        this.typeForces[3][0] = new Force(0, this.masse * gAcc.composanteY);
+    }
+
     getResultante() {
 
         let vecteurResultant = new Vecteur();
+
         this.typeForces.forEach(type => {
 
             type.forEach(force => {
