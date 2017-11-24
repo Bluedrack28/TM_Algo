@@ -10,7 +10,8 @@ class Objet {
     */
 
     constructor (x, y, masse, coef, speed = new Speed(), forces = []) {
-    
+        this.startY = x;
+        this.startX = y;
         this.x = x;
         this.y = y;
         this.masse = masse;
@@ -140,7 +141,32 @@ class Objet {
 
     alterate(pourcent) {
 
-    }    
+        if(Math.random() < 0.5){
+            this.startX = this.startX *(1 + pourcent);
+        }else{
+            this.startX = this.startX *(1 - pourcent);
+        }
+
+        if(Math.random() < 0.5){
+            this.startY = this.startY *(1 + pourcent);
+        }else{
+            this.startY = this.startY *(1 - pourcent);
+        }
+
+        if(Math.random() < 0.5){
+            this.coef = this.coef *(1 + pourcent);
+        }else{
+            this.coef = this.coef *(1 - pourcent);
+        }
+
+        if(Math.random() < 0.5){
+            this.masse = this.masse *(1 + pourcent);
+        }else{
+            this.masse = this.masse *(1 - pourcent);
+        }
+
+    }
+
 }
 class RoundObjet extends Objet{
     
@@ -150,6 +176,11 @@ class RoundObjet extends Objet{
         this.raduis = Math.sqrt(masse/(Math.PI));
         //this.raduis = raduis;
     
+    }
+
+    alterate(pourcent){
+        super.alterate(pourcent);
+        this.raduis = Math.sqrt(this.masse/(Math.PI));
     }
     
 }

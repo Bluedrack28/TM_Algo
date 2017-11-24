@@ -43,16 +43,25 @@ class Creature {
     
     }   
 
-    static alterateCreature(creature, poucent){
+    alterate(pourcent){
 
-        creature.muscle.forEach(muscle => {
+        creature.muscles.forEach(muscle => {
             muscle.alterate(pourcent);
         });
 
-        creature.objets.forEach(pbjet => {
+        creature.objets.forEach(objet => {
             objet.alterate(pourcent);
         });
 
+    }
+
+    getScore(){
+        let score = 0;
+        this.objets.forEach(objet => {
+            score += objet.x;
+        });
+        score = score / this.objets.length;
+        return score;
     }
 
     update(){
