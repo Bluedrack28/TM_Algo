@@ -4,7 +4,7 @@ let ctx = canvas.getContext('2d')
 let creature = Creature.getRandomCreature();
 let creature1 = Creature.getRandomCreature();
 let physique = new Physique();
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 20; i++) {
     physique.addCreature(Creature.getRandomCreature());
 }
 physique.addCreature(creature);
