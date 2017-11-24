@@ -12,7 +12,7 @@ class Ground {
 
 class Physique {
 
-    constructor(creatures = [], ground = new Ground(), gAcc = new Acceleration(0,0.05)){
+    constructor(creatures = [], ground = new Ground(), gAcc = new Acceleration(0,0.1)){
         this.gAcc = gAcc;
         this.creatures = creatures;
         this.ground = ground;
@@ -48,21 +48,26 @@ class Physique {
     }
 
     updateSystem() {
-
+        
         this.creatures.forEach(creature => {
             
-            //creature.update();
+            creature.update();
 
             creature.objets.forEach(objet => {
                 
-                if(objet.y + objet.raduis > this.ground.level){
+                if(objet.y + objet.raduis >= this.ground.level){
+
+                    let res = objet.getResultante();
+                    
                     objet.removeForces();
-                    //let res = objet.getResultante();
-                    objet.speed.composanteY *= -1
-                    objet.speed.composanteX *= -1
-                    
-                    
-                    //objet.addForce(new Force(0, res.composanteY),2);
+
+                    if(objet.speed.composanteY >= 0){
+                        
+                        objet.speed.composanteY *= -0.94
+                        objet.y  = this.ground.level - objet.raduis;                      
+                    }
+
+                    objet.addForce(new Force(res.composanteX*objet.coef , 0), 2);
                     
 
                 } else {
@@ -72,7 +77,7 @@ class Physique {
                 }
 
             });
-            creature.update();
+            //creature.update();
         });
     } 
 

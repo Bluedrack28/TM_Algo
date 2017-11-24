@@ -13,11 +13,13 @@ class Creature {
         let muscles = [];
         let muscle;
 
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 4; i++) {
 
             objet = new RoundObjet( Random.getRandomInt(100,200),
                                     Random.getRandomInt(100,200),
-                                    Random.getRandomInt(200,1000));
+                                    Random.getRandomInt(200,1000),
+                                    Math.random()
+                                );
             objets.push(objet);
         }
         
@@ -27,8 +29,8 @@ class Creature {
                 if (Math.random() > 0.2) {
                     muscle = new Muscle(objets[i],
                         objets[j+1],
-                        [new Motion(1, 1),
-                        new Motion(1, 1)],
+                        [new Motion(10, 1),
+                        new Motion(10, 1)],
                         Random.getRandomInt(10,50), Random.getRandomInt(50,150));
                     muscles.push(muscle);
                 }

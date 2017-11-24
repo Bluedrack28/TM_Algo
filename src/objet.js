@@ -9,16 +9,28 @@ class Objet {
     * @param {*} forces 
     */
 
-    constructor (x, y, masse, speed = new Speed(), forces = []) {
+    constructor (x, y, masse, coef, speed = new Speed(), forces = []) {
     
         this.x = x;
         this.y = y;
         this.masse = masse;
+        this.coef = coef;
         this.speed = speed;
+    
         this.forces = forces;
         this.muscleForces = [];
         
-        this.typeForces = [this.muscleForces, this.forces, [], []];
+
+        /**
+         * 
+         * [0] = muscle
+         * [1] = graviter
+         * [2] = frottement
+         * [3] = forces autres
+         * 
+         */
+
+        this.typeForces = [this.muscleForces, [], [], this.forces];
 
     }
 
@@ -38,8 +50,7 @@ class Objet {
     removeMuscleForce(){
 
         this.typeForces[0] = [];
-        this.typeForces[2] = [];
-
+        this.typeForces[2] = []
     }
 
     removeForces(){
@@ -58,9 +69,13 @@ class Objet {
     }
 
     applyGravity(gAcc){
-        this.typeForces[3][0] = new Force(0, this.masse * gAcc.composanteY);
+        this.typeForces[1][0] = new Force(0, this.masse * gAcc.composanteY);
     }
 
+    removeGravity(){
+        this.typeForces[1][0] = new Force();
+    }
+    
     getResultante() {
 
         let vecteurResultant = new Vecteur();
@@ -129,9 +144,9 @@ class Objet {
 }
 class RoundObjet extends Objet{
     
-    constructor (x, y, masse, speed = new Speed(), forces = []) {
+    constructor (x, y, masse, coef, speed = new Speed(), forces = []) {
             
-        super(x,y,masse,speed,forces);
+        super(x,y,masse,coef,speed,forces);
         this.raduis = Math.sqrt(masse/(Math.PI));
         //this.raduis = raduis;
     

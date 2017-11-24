@@ -23,7 +23,7 @@ function update() {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawCreature(creature, 'red');
+    drawCreature(creature);
     //drawCreature(creature1, 'blue');
     ctx.beginPath()
     ctx.lineWidth = 1;
@@ -32,7 +32,7 @@ function draw() {
     ctx.stroke();
 }
 
-function drawCreature(creature,color){
+function drawCreature(creature){
 
     creature.muscles.forEach(muscle => {
         
@@ -42,8 +42,9 @@ function drawCreature(creature,color){
     creature.objets.forEach(objet => {
 
         ctx.beginPath();
-        ctx.fillStyle = color;
+        ctx.fillStyle = 'rgb('+ objet.coef*255 +','+ objet.coef*255 +','+ objet.coef*255+')'
         ctx.arc(objet.x, objet.y, objet.raduis, 0, 2 * Math.PI)
+        
         ctx.fill();
 
     });
@@ -57,7 +58,7 @@ function drawVector(objet1,objet2){
     ctx.lineTo(objet2.x, objet2.y);
     ctx.lineWidth = 10/(0.1*Vecteur.getVecteurBetweenTwoObjets(objet1,objet2).getNorme()^2+20)+10;
     ctx.globalAlpha = 0.4
-    ctx.strokeSytle = 'blue'
+    ctx.strokeSytle = 'black'
     ctx.stroke();
     ctx.globalAlpha = 1
     ctx.fill;
