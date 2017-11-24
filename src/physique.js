@@ -12,7 +12,7 @@ class Ground {
 
 class Physique {
 
-    constructor(creatures = [], ground = new Ground(), gAcc = new Acceleration(0,0.1)){
+    constructor(creatures = [], ground = new Ground(), gAcc = new Acceleration(0,0.01)){
         this.gAcc = gAcc;
         this.creatures = creatures;
         this.ground = ground;
@@ -77,8 +77,9 @@ class Physique {
                 }
 
             });
-            //creature.update();
+            
         });
+
     } 
 
 }

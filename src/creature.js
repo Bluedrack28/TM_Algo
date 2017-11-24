@@ -29,8 +29,8 @@ class Creature {
                 if (Math.random() > 0.2) {
                     muscle = new Muscle(objets[i],
                         objets[j+1],
-                        [new Motion(10, 1),
-                        new Motion(10, 1)],
+                        [new Motion(Random.getRandomInt(1,4), Random.getRandomInt(1,5)),
+                        new Motion(Random.getRandomInt(1,5), Random.getRandomInt(1,5))],
                         Random.getRandomInt(10,50), Random.getRandomInt(50,150));
                     muscles.push(muscle);
                 }
@@ -78,8 +78,6 @@ class Creature {
             muscle.setForcesToObjets();
         
         });
-
-        
 
     }
 
