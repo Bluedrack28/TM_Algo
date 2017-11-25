@@ -1,0 +1,9 @@
+{
+    "ObjetMinWeight" : 300,
+    "ObjetMaxWeight" : 500,
+    "GravityConst" : 0.01,
+    "MuscleMinStength" : 3,
+    "MuscelMaxStrength" : 10,
+    "MuscleMinLength" : 50,
+    "MuscleMaxLength" : 100
+}

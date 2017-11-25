@@ -1,32 +1,25 @@
 //const Physique = require('./physique.js');
 let canvas = document.getElementById('canvas');
-let ctx = canvas.getContext('2d')
+let canvas1 = document.getElementById('canvas1');
+let stopRestartB = document.getElementById('stop');
+let startB = document.getElementById('start');
+let resultB = document.getElementById('result');
+
+let ctx = canvas.getContext('2d');
+let ctx1 = canvas.getContext('2d');
 let creature = Creature.getRandomCreature();
 let creature1 = Creature.getRandomCreature();
-let physique = new Physique();
-for (let i = 0; i < 20; i++) {
-    physique.addCreature(Creature.getRandomCreature());
-}
-physique.addCreature(creature);
-physique.addCreature(creature1);
-/*
-let objet1 = new RoundObjet(10, 10, 300, 10);
-let objet2 = new RoundObjet(200, 100, 100, 10);
-let objet3 = new RoundObjet(150, 80, 1000, 10);
+//let physique = new Physique();
+let algo = new Algo();
 
-let muscle = new Muscle(objet1, objet2, [new Motion(4,4),new Motion(2,4)],20,100);
-let muscle1 = new Muscle(objet1, objet3, [new Motion(5,2),new Motion(5,1)],30,100);
-let muscle2 = new Muscle(objet2, objet3, [new Motion(3,1),new Motion(3,5)],50,100);
-*/
 function update() {
 
-    physique.updateSystem();
-
+    algo.update();
 }
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    physique.creatures.forEach(creature => {
+    algo.physique.creatures.forEach(creature => {
         drawCreature(creature);
     });
     ctx.beginPath()
@@ -76,5 +69,24 @@ function loop() {
     requestAnimationFrame(loop);
     
 }
+
+stopRestartB.addEventListener('click', ()=> {
+    if(algo.pause === true){
+        algo.pause = false;
+        stopRestartB.innerHTML = "Stop"
+    } else {
+        algo.stop()
+        stopRestartB.innerHTML = "Restart"
+    }
+    
+});
+
+startB.addEventListener('click', () => {
+    algo.init(document.getElementById('nbr').value);
+});
+
+resultB.addEventListener('click', () => {
+    console.log(algo.result());
+});
 
 loop();
