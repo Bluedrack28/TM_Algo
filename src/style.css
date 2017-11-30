@@ -1,6 +1,6 @@
 
 .button {
-    font-family: sans-serif;
+    font-family: sans-serif, Arial, Helvetica, sans-serif;
     border: none;
     background-color: gray;
     color: white;
@@ -13,24 +13,18 @@
     border-radius: 2px;
 }
 .input {
-    font-family: sans-serif;
+    font-family: sans-serif, Arial, Helvetica, sans-serif;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    /*box-sizing: border-box;*/
     border: none;
-    text-decoration: none;
-    background-color: gray;
-    display: inline-block;
-    padding: 15px 32px;
-    font-size: 16px;
-    border-radius: 2px;
-}
-.text {
+    border-bottom: 2px solid red;
 
-    font-family: sans-serif;
-    border: none;
-    font-size: 16px;
-    padding: 15px 32px;
 }
+
 .span {
-
+    font-family: sans-serif, Arial, Helvetica, sans-serif;
     padding: 15px 32px;
     background-color: gray;
     color: white;
