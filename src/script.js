@@ -76,7 +76,7 @@ stopRestartB.addEventListener('click', ()=> {
         stopRestartB.innerHTML = "Stop"
     } else {
         algo.stop()
-        stopRestartB.innerHTML = "Restart"
+        stopRestartB.innerHTML = "Resume"
     }
     
 });
