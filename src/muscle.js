@@ -41,7 +41,7 @@ class Muscle {
     */
     getForce(objet, step){
  
-        let facteur = 0.5 * this.motions[this.step].power / this.motions[this.step].duration;
+        let facteur = 1 * this.motions[this.step].power / this.motions[this.step].duration;
         let vecteur = Vecteur.produit(this.returnVecteur(), facteur);
          
         if (this.objet1 != objet) {

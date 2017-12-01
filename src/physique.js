@@ -12,7 +12,7 @@ class Ground {
 
 class Physique {
 
-    constructor(creatures = [], ground = new Ground(), gAcc = new Acceleration(0,0.01)){
+    constructor(creatures = [], ground = new Ground(), gAcc = new Acceleration(0,0.1)){
         this.gAcc = gAcc;
         this.creatures = creatures;
         this.ground = ground;
@@ -63,7 +63,7 @@ class Physique {
 
                     if(objet.speed.composanteY >= 0){
                         
-                        objet.speed.composanteY *= -0.94
+                        objet.speed.composanteY *= -0.5
                         objet.y  = this.ground.level - objet.raduis;                      
                     }
 

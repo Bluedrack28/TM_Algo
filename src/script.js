@@ -4,7 +4,8 @@ let canvas1 = document.getElementById('canvas1');
 let stopRestartB = document.getElementById('stop');
 let startB = document.getElementById('start');
 let resultB = document.getElementById('result');
-
+let alterateB = document.getElementById('alterate');
+let draws = false;
 let ctx = canvas.getContext('2d');
 let ctx1 = canvas.getContext('2d');
 let creature = Creature.getRandomCreature();
@@ -27,6 +28,10 @@ function draw() {
     ctx.moveTo(0,300);
     ctx.lineTo(300,300);
     ctx.stroke();
+    if(draws == true) {
+        drawCreatureStatic(algo.result()[0]);        
+    }
+    
 }
 
 function drawCreature(creature){
@@ -61,7 +66,22 @@ function drawVector(objet1,objet2){
     ctx.fill;
 
 }
+function drawCreatureStatic(creature) {
+    creature.muscles.forEach(muscle => {
+        
+                drawVector({x: muscle.objet1.startX, y: muscle.objet1.startY},
+                        {x: muscle.objet2.startX, y: muscle.objet2.startY});
+        
+    });
+    creature.objets.forEach(objet => {
 
+        ctx.beginPath();
+        ctx.fillStyle = 'rgb('+ objet.coef*255 +','+ objet.coef*255 +','+ 255+')'
+        ctx.arc(objet.startX, objet.startY, objet.raduis, 0, 2 * Math.PI)
+        ctx.fill();
+
+    });
+}
 function loop() {
     
     draw();
@@ -86,7 +106,11 @@ startB.addEventListener('click', () => {
 });
 
 resultB.addEventListener('click', () => {
+    draws = true;
     console.log(algo.result());
+});
+alterateB.addEventListener('click',()=>{
+    algo.newGeneration();
 });
 
 loop();

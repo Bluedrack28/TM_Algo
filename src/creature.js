@@ -3,7 +3,8 @@ class Creature {
     
     constructor (objets = [], muscles = []) {
         this.objets = objets;
-        this.muscles = muscles
+        this.muscles = muscles;
+        
     }
     
     static getRandomCreature () {
@@ -12,12 +13,12 @@ class Creature {
         let objet;
         let muscles = [];
         let muscle;
-
+        
         for (let i = 0; i < 4; i++) {
 
-            objet = new RoundObjet( Random.getRandomInt(100,200),
-                                    Random.getRandomInt(100,200),
-                                    Random.getRandomInt(200,1000),
+            objet = new RoundObjet( Random.getRandomInt(50,250),
+                                    Random.getRandomInt(50,250),
+                                    Random.getRandomInt(300,1000),
                                     Math.random()
                                 );
             objets.push(objet);
@@ -29,9 +30,9 @@ class Creature {
                 if (Math.random() > 0.2) {
                     muscle = new Muscle(objets[i],
                         objets[j+1],
-                        [new Motion(Random.getRandomInt(1,4), Random.getRandomInt(1,5)),
-                        new Motion(Random.getRandomInt(1,5), Random.getRandomInt(1,5))],
-                        Random.getRandomInt(10,50), Random.getRandomInt(50,150));
+                        [new Motion(Random.getRandomInt(70,100), Random.getRandomInt(1,10)),
+                        new Motion(Random.getRandomInt(70,100), Random.getRandomInt(6,10))],
+                        Random.getRandomInt(60,75), Random.getRandomInt(100,160));
                     muscles.push(muscle);
                 }
 

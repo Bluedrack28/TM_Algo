@@ -50,11 +50,24 @@ class Algo {
         let creatures = [];
 
         this.physique.creatures.forEach(creature => {
-            creatures.push({creature : creature , score : creature.getScore()});
+            creature.score = creature.getScore();
+            creatures.push(creature);
         });
-        
-        
-
+        let a;
+        let b;
+        for (let i = 0; i < creatures.length-1;) {
+            a = creatures[i];
+            b = creatures[i+1]
+            if(a.score < b.score) {
+                //console.log(a,b);
+                creatures[i]  = b;
+                creatures[i+1] = a;
+                i = 0;
+            }else {
+                i++;
+            }
+            
+        }
         return creatures;
     }
 
@@ -63,10 +76,15 @@ class Algo {
      * Modfifie un peux le meilleur creature. Tue les moins bonne et en cree de nouvelle.
      */
     newGeneration(){
-        
-        this.creatures.forEach(creature => {
-            creature.alterate();
+
+        //!!! FONCTIONNE PAS ATTENTION
+        let results = this.result();
+        results.forEach(creature => {  
+            creature.alterate(1);
+            delete creature.score;
         });
+        this.physique.creatures = results;
+        return results;
 
     }
 }
