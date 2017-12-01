@@ -141,6 +141,10 @@ class Objet {
 
     alterate(pourcent) {
 
+        /**
+         * A REVOIR !!! 
+         */
+        
         if(Math.random() < 0.5){
             this.startX = this.startX *(1 + pourcent);
         }else{

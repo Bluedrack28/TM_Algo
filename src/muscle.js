@@ -106,7 +106,9 @@ class Muscle {
         }
     }
     alterate(){
-        
+        /**
+         * A (RE)VOIR !!! 
+         */
     }
 
 
