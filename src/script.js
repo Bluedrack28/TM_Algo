@@ -46,7 +46,8 @@ function drawCreature(creature){
         ctx.beginPath();
         ctx.fillStyle = 'rgb('+ objet.coef*255 +','+ objet.coef*255 +','+ 255+')'
         ctx.arc(objet.x, objet.y, objet.raduis, 0, 2 * Math.PI)
-        
+        ctx.lineWidth = 2
+        ctx.stroke();   
         ctx.fill();
 
     });
@@ -76,8 +77,10 @@ function drawCreatureStatic(creature) {
     creature.objets.forEach(objet => {
 
         ctx.beginPath();
-        ctx.fillStyle = 'rgb('+ objet.coef*255 +','+ objet.coef*255 +','+ 255+')'
-        ctx.arc(objet.startX, objet.startY, objet.raduis, 0, 2 * Math.PI)
+        ctx.fillStyle = 'rgb('+ objet.coef*255 +','+ objet.coef*255 +','+ 255+')';
+        ctx.arc(objet.startX, objet.startY, objet.raduis, 0, 2 * Math.PI);
+        ctx.lineWidth = 2;
+        ctx.stroke();        
         ctx.fill();
 
     });
