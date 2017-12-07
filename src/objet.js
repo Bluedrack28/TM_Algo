@@ -177,14 +177,14 @@ class RoundObjet extends Objet{
     constructor (x, y, masse, coef, speed = new Speed(), forces = []) {
             
         super(x,y,masse,coef,speed,forces);
-        this.raduis = Math.sqrt(masse/(Math.PI));
-        //this.raduis = raduis;
+        this.radius = Math.sqrt(masse/(Math.PI));
+        //this.radius = radius;
     
     }
 
     alterate(pourcent){
         super.alterate(pourcent);
-        this.raduis = Math.sqrt(this.masse/(Math.PI));
+        this.radius = Math.sqrt(this.masse/(Math.PI));
     }
     
 }

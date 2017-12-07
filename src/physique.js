@@ -55,7 +55,7 @@ class Physique {
 
             creature.objets.forEach(objet => {
                 
-                if(objet.y + objet.raduis >= this.ground.level){
+                if(objet.y + objet.radius >= this.ground.level){
 
                     let res = objet.getResultante();
                     
@@ -64,7 +64,7 @@ class Physique {
                     if(objet.speed.composanteY >= 0){
                         
                         objet.speed.composanteY *= -0.5
-                        objet.y  = this.ground.level - objet.raduis;                      
+                        objet.y  = this.ground.level - objet.radius;                      
                     }
 
                     objet.addForce(new Force(res.composanteX*objet.coef , 0), 2);

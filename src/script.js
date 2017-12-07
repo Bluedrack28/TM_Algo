@@ -25,8 +25,8 @@ function draw() {
     });
     ctx.beginPath()
     ctx.lineWidth = 1;
-    ctx.moveTo(0,300);
-    ctx.lineTo(300,300);
+    //ctx.moveTo(0,300);
+    //ctx.lineTo(300,300);
     ctx.stroke();
     if(draws == true) {
         drawCreatureStatic(algo.result()[0]);        
@@ -45,7 +45,7 @@ function drawCreature(creature){
 
         ctx.beginPath();
         ctx.fillStyle = 'rgb('+ objet.coef*255 +','+ objet.coef*255 +','+ 255+')'
-        ctx.arc(objet.x, objet.y, objet.raduis, 0, 2 * Math.PI)
+        ctx.arc(objet.x, objet.y, objet.radius, 0, 2 * Math.PI)
         ctx.lineWidth = 2
         ctx.stroke();   
         ctx.fill();
@@ -78,7 +78,7 @@ function drawCreatureStatic(creature) {
 
         ctx.beginPath();
         ctx.fillStyle = 'rgb('+ objet.coef*255 +','+ objet.coef*255 +','+ 255+')';
-        ctx.arc(objet.startX, objet.startY, objet.raduis, 0, 2 * Math.PI);
+        ctx.arc(objet.startX, objet.startY, objet.radius, 0, 2 * Math.PI);
         ctx.lineWidth = 2;
         ctx.stroke();        
         ctx.fill();

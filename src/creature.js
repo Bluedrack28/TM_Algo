@@ -14,7 +14,7 @@ class Creature {
         let muscles = [];
         let muscle;
         
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 3; i++) {
 
             objet = new RoundObjet( Random.getRandomInt(50,250),
                                     Random.getRandomInt(50,250),
