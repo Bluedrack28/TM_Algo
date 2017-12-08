@@ -30,8 +30,8 @@ class Creature {
                 if (Math.random() > 0.2) {
                     muscle = new Muscle(objets[i],
                         objets[j+1],
-                        [new Motion(Random.getRandomInt(70,100), Random.getRandomInt(1,10)),
-                        new Motion(Random.getRandomInt(70,100), Random.getRandomInt(6,10))],
+                        [new Motion(Random.getRandomInt(70,300), Random.getRandomInt(10,10)),
+                        new Motion(Random.getRandomInt(70,300), Random.getRandomInt(6,10))],
                         Random.getRandomInt(60,75), Random.getRandomInt(100,160));
                     muscles.push(muscle);
                 }
@@ -70,7 +70,7 @@ class Creature {
         this.objets.forEach(objet => {
             
             objet.updatePosition();
-            objet.removeMuscleForce();
+            objet.removeForces();
             
         });
 

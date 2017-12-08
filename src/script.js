@@ -10,7 +10,6 @@ let ctx = canvas.getContext('2d');
 let ctx1 = canvas.getContext('2d');
 let creature = Creature.getRandomCreature();
 let creature1 = Creature.getRandomCreature();
-//let physique = new Physique();
 let algo = new Algo();
 
 function update() {
@@ -25,8 +24,6 @@ function draw() {
     });
     ctx.beginPath()
     ctx.lineWidth = 1;
-    //ctx.moveTo(0,300);
-    //ctx.lineTo(300,300);
     ctx.stroke();
     if(draws == true) {
         drawCreatureStatic(algo.result()[0]);        
@@ -35,18 +32,18 @@ function draw() {
 }
 
 function drawCreature(creature){
-
+    
     creature.muscles.forEach(muscle => {
         
-                drawVector(muscle.objet1, muscle.objet2);
+        drawVector(muscle.objet1, muscle.objet2);
         
     });
     creature.objets.forEach(objet => {
 
         ctx.beginPath();
-        ctx.fillStyle = 'rgb('+ objet.coef*255 +','+ objet.coef*255 +','+ 255+')'
-        ctx.arc(objet.x, objet.y, objet.radius, 0, 2 * Math.PI)
-        ctx.lineWidth = 2
+        ctx.fillStyle = 'rgb('+ objet.coef*255 +','+ objet.coef*255 +','+ 255+')';
+        ctx.arc(objet.x, objet.y, objet.radius, 0, 2 * Math.PI);
+        ctx.lineWidth = 2;
         ctx.stroke();   
         ctx.fill();
 
@@ -55,7 +52,6 @@ function drawCreature(creature){
     
 }
 function drawVector(objet1,objet2){
-
     ctx.beginPath();
     ctx.moveTo(objet1.x, objet1.y);
     ctx.lineTo(objet2.x, objet2.y);
@@ -63,15 +59,15 @@ function drawVector(objet1,objet2){
     ctx.globalAlpha = 0.4
     ctx.strokeSytle = 'black'
     ctx.stroke();
-    ctx.globalAlpha = 1
+    ctx.globalAlpha = 1;
     ctx.fill;
 
 }
 function drawCreatureStatic(creature) {
     creature.muscles.forEach(muscle => {
         
-                drawVector({x: muscle.objet1.startX, y: muscle.objet1.startY},
-                        {x: muscle.objet2.startX, y: muscle.objet2.startY});
+        drawVector({x: muscle.objet1.startX, y: muscle.objet1.startY},
+                {x: muscle.objet2.startX, y: muscle.objet2.startY});
         
     });
     creature.objets.forEach(objet => {

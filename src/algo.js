@@ -51,29 +51,32 @@ class Algo {
 
         this.physique.creatures.forEach(creature => {
             creature.score = creature.getScore();
-            creatures.push(creature);
+            /**
+             * Cree une copie pour ne pas avoir de probleme dans les scores.
+             */
+            creatures.push(JSON.parse(JSON.stringify(creature)));
         });
         let a;
         let b;
         for (let i = 0; i < creatures.length-1;) {
             a = creatures[i];
-            b = creatures[i+1]
+            b = creatures[i+1];
             if(a.score < b.score) {
-                //console.log(a,b);
                 creatures[i]  = b;
                 creatures[i+1] = a;
                 i = 0;
-            }else {
+            } else {
                 i++;
             }
             
         }
+        //console.log(creatures);
         return creatures;
     }
 
     /**
      * 
-     * Modfifie un peux le meilleur creature. Tue les moins bonne et en cree de nouvelle.
+     * Modfifie un peux la meilleur creature. Tue les moins bonne et en cree de nouvelle.
      */
     newGeneration(){
 

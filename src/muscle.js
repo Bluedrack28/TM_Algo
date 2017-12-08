@@ -74,7 +74,7 @@ class Muscle {
  
      setForcesToObjets(){
 
-        if( this.step === 0 ){
+        if ( this.step === 0 ) {
              
             if( this.returnVecteur().getNorme() < this.longueurMin ){
  
@@ -111,6 +111,9 @@ class Muscle {
          */
     }
 
+}
+class MuscleNew {
+    constructor(objet1,objet2,stenght,longueurMax,longueurMin){
 
-     
- }
+    }
+}
