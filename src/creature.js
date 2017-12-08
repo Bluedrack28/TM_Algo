@@ -66,18 +66,16 @@ class Creature {
     }
 
     update(){
-        
+        this.muscles.forEach(muscle => {
+            
+                        muscle.setForcesToObjets();
+                    
+                    });
         this.objets.forEach(objet => {
             
             objet.updatePosition();
             objet.removeForces();
             
-        });
-
-        this.muscles.forEach(muscle => {
-
-            muscle.setForcesToObjets();
-        
         });
 
     }

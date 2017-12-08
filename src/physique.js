@@ -59,17 +59,17 @@ class Physique {
 
                     let res = objet.getResultante();
                     
-                    objet.removeForces();
+                    //objet.removeForces();
 
                     if(objet.speed.composanteY >= 0){
                         
-                        objet.speed.composanteY *= -0.1
+                        objet.speed.composanteY *= -objet.coef;
+                        objet.speed.composanteX *= -objet.coef;
                         objet.y  = this.ground.level - objet.radius;
-                        objet.addForce(new Force(res.composanteX*objet.coef , res.composanteX*objet.coef ), 2);                   
+                        //objet.removeForces();
+                        //console.log(objet);
+                        objet.addForce(new Force(res.composanteX*objet.coef , res.composanteX ), 2);                   
                     }
-
-                    
-                    
 
                 } else {
 
