@@ -12,6 +12,10 @@ class Motion {
         this.duration = duration;
 
     }
+    alterate(pourcent){
+        this.power = Logic.alterate(this.power,pourcent,1,10);
+        this.duration = Logic.alterate(this.duration,pourcent,1,10);
+    }
     
 }
 
@@ -105,10 +109,16 @@ class Muscle {
             }
         }
     }
-    alterate(){
+    alterate(pourcent){
         /**
          * A (RE)VOIR !!! 
          */
+        this.motions.forEach(motion => {
+            motion.alterate(pourcent);
+        });
+        this.longueurMin = Logic.alterate(this.longueurMin,pourcent,50,70);
+        this.longueurMax = Logic.alterate(this.longueurMax,pourcent,70,100);
+        
     }
 
 }

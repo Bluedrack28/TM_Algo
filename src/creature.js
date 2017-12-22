@@ -81,3 +81,13 @@ class Creature {
     }
 
 }
+
+class ScoredCreature {
+    constructor(creature,score){
+        this.creature = creature;
+        this.score = score;
+    }
+    getCreature(){
+        return new Creature(this.creature.objets,this.creature.muscle);
+    }
+}

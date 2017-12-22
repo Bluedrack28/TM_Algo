@@ -55,7 +55,7 @@ function drawVector(objet1,objet2){
     ctx.beginPath();
     ctx.moveTo(objet1.x, objet1.y);
     ctx.lineTo(objet2.x, objet2.y);
-    ctx.lineWidth = 10/(0.1*Vecteur.getVecteurBetweenTwoObjets(objet1,objet2).getNorme()^2+20)+10;
+    ctx.lineWidth = 10/(0.1*Vecteur.getVecteurBetweenTwoObjets(objet1,objet2).getNorme()**2+20)+10;
     ctx.globalAlpha = 0.4
     ctx.strokeSytle = 'black'
     ctx.stroke();
@@ -109,7 +109,7 @@ resultB.addEventListener('click', () => {
     console.log(algo.result());
 });
 alterateB.addEventListener('click',()=>{
-    algo.newGeneration();
+    console.log(algo.newGeneration());
 });
 
 loop();

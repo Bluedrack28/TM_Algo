@@ -8,6 +8,8 @@ class Algo {
         /**
          * Array des creature en fonction de leurs performances.
          */
+        this.LIMIT = 10;
+        this.ALTERATE = 
         this.creatures = [];
     }
     /**
@@ -49,31 +51,30 @@ class Algo {
 
         let creatures = [];
 
-        this.physique.creatures.forEach(creature => {
-            creature.score = creature.getScore();
+        this.physique.creatures.forEach((creature, index) => {
+            
             /**
              * Cree une copie pour ne pas avoir de probleme dans les scores.
              */
-            creatures.push(JSON.parse(JSON.stringify(creature)));
+            creatures.push(new Creature(creature.objets,creature.muscles));
+            creatures[index].score = creature.getScore();
+            //creatures.push(JSON.parse(JSON.stringify(creature)));
         });
-        let a;
-        let b;
-        for (let i = 0; i < creatures.length-1;) {
-            a = creatures[i];
-            b = creatures[i+1];
-            if(a.score < b.score) {
-                creatures[i]  = b;
-                creatures[i+1] = a;
-                i = 0;
-            } else {
-                i++;
-            }
-            
-        }
-        //console.log(creatures);
+        creatures.sort(function(a,b){
+            return a.score - b.score;
+        })
+        creatures.reverse();
         return creatures;
     }
 
+    /**
+     * fonction qui renvoie le poucentage de modifications d'une créature en fonction de son rang
+     * @param {*} index le rang de la creature
+     * @param {*} length le nombre de creature
+     */
+    pourcentAlterate(index,length){
+        return 1 - 1/((1/length)*index**2+ 1);
+    }
     /**
      * 
      * Modfifie un peux la meilleur creature. Tue les moins bonne et en cree de nouvelle.
@@ -82,10 +83,17 @@ class Algo {
 
         //!!! FONCTIONNE PAS ATTENTION
         let results = this.result();
-        results.forEach(creature => {  
-            creature.alterate(1);
-            delete creature.score;
-        });
+        let length = results.length;
+        //console.log(results);
+        for (let i = 0; i  < results.length; i++) {
+            if(i <= this.LIMIT){
+                results[i].alterate(this.pourcentAlterate(i,length));
+                delete results[i].score
+            }else{
+                results[i] = Creature.getRandomCreature();
+            }
+            
+        }
         this.physique.creatures = results;
         return results;
 

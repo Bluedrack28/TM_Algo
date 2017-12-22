@@ -144,30 +144,13 @@ class Objet {
         /**
          * A REVOIR !!! 
          */
-        
-        if(Math.random() < 0.5){
-            this.startX = this.startX *(1 + pourcent);
-        }else{
-            this.startX = this.startX *(1 - pourcent);
-        }
+        this.startX = Logic.alterate(this.startX,pourcent,100,200);
+        this.startY = Logic.alterate(this.startY,pourcent,100,200);
+        this.masse = Logic.alterate(this.masse,pourcent,500,700);
+        this.coef = Logic.alterate(this.coef,pourcent,0,1);
+        this.x = this.startX;
+        this.y = this.startY;
 
-        if(Math.random() < 0.5){
-            this.startY = this.startY *(1 + pourcent);
-        }else{
-            this.startY = this.startY *(1 - pourcent);
-        }
-
-        if(Math.random() < 0.5){
-            this.coef = this.coef *(1 + pourcent);
-        }else{
-            this.coef = this.coef *(1 - pourcent);
-        }
-
-        if(Math.random() < 0.5){
-            this.masse = this.masse *(1 + pourcent);
-        }else{
-            this.masse = this.masse *(1 - pourcent);
-        }
 
     }
 
