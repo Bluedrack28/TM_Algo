@@ -25,7 +25,7 @@ class Objet {
         /**
          * 
          * [0] = muscle
-         * [1] = graviter
+         * [1] = gravité
          * [2] = frottement
          * [3] = forces autres
          * 
@@ -49,9 +49,8 @@ class Objet {
     }
     
     removeMuscleForce(){
-
         this.typeForces[0] = [];
-        this.typeForces[2] = []
+        this.typeForces[3] = []
     }
 
     removeForces(){
@@ -103,6 +102,17 @@ class Objet {
         let acc = new Acceleration( resultante.composanteX / this.masse, resultante.composanteY / this.masse);
         return acc;
 
+    }
+
+    generateContact(nx,ny){
+        let vNormal, fNormal, fx, fy;
+        let vx = this.getSpeed().composanteX;
+        let vy = this.getSpeed().composanteY;
+        vNormal = vx * nx + vy * ny;
+        fNormal = -(1 + this.coef) * vNormal * this.masse / 1;
+        fx = fNormal * nx;
+        fy = fNormal * ny;
+        this.addForce(new Force(fx,fy),3)
     }
 
     getSpeed() {
