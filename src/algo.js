@@ -1,24 +1,24 @@
-//const Physique = require('./Phyique');
+//const Physique = require('./Phyique')
 
 class Algo {
     
     constructor(){
-        this.physique = new Physique();
-        this.pause = false;
+        this.physique = new Physique()
+        this.pause = false
         /**
          * Array des creature en fonction de leurs performances.
          */
-        this.LIMIT = 10;
+        this.LIMIT = 10
         this.ALTERATE = 
-        this.creatures = [];
+        this.creatures = []
     }
     /**
      * Mais en place l'algo
      */
     init(nbrCrea){
-        this.physique = new Physique();
+        this.physique = new Physique()
         for (let i = 0; i < nbrCrea; i++) {
-            this.physique.addCreature(Creature.getRandomCreature());
+            this.physique.addCreature(Creature.getRandomCreature())
         }
 
     }
@@ -34,14 +34,14 @@ class Algo {
      */
     update(){
         if(this.pause === false){
-            this.physique.updateSystem();
+            this.physique.updateSystem()
         }
     }
     /**
      * Stop l'alogo
      */
     stop(){
-        this.pause = true;
+        this.pause = true
     }
 
     /**
@@ -49,22 +49,22 @@ class Algo {
      */
     result(){
 
-        let creatures = [];
+        let creatures = []
 
         this.physique.creatures.forEach((creature, index) => {
             
             /**
              * Cree une copie pour ne pas avoir de probleme dans les scores.
              */
-            creatures.push(new Creature(creature.objets,creature.muscles));
-            creatures[index].score = creature.getScore();
-            //creatures.push(JSON.parse(JSON.stringify(creature)));
-        });
-        creatures.sort(function(a,b){
-            return a.score - b.score;
+            creatures.push(new Creature(creature.objets,creature.muscles))
+            creatures[index].score = creature.getScore()
+            //creatures.push(JSON.parse(JSON.stringify(creature)))
         })
-        creatures.reverse();
-        return creatures;
+        creatures.sort(function(a,b){
+            return a.score - b.score
+        })
+        creatures.reverse()
+        return creatures
     }
 
     /**
@@ -73,7 +73,7 @@ class Algo {
      * @param {*} length le nombre de creature
      */
     pourcentAlterate(index,length){
-        return 1 - 1/((1/length)*index**2+ 1);
+        return 1 - 1/((1/length)*index**2+ 1)
     }
     /**
      * 
@@ -82,20 +82,20 @@ class Algo {
     newGeneration(){
 
         //!!! FONCTIONNE PAS ATTENTION
-        let results = this.result();
-        let length = results.length;
-        //console.log(results);
+        let results = this.result()
+        let length = results.length
+        //console.log(results)
         for (let i = 0; i  < results.length; i++) {
             if(i <= this.LIMIT){
-                results[i].alterate(this.pourcentAlterate(i,length));
+                results[i].alterate(this.pourcentAlterate(i,length))
                 delete results[i].score
             }else{
-                results[i] = Creature.getRandomCreature();
+                results[i] = Creature.getRandomCreature()
             }
             
         }
-        this.physique.creatures = results;
-        return results;
+        this.physique.creatures = results
+        return results
 
     }
 }

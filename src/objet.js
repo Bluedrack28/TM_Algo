@@ -10,16 +10,16 @@ class Objet {
     */
 
     constructor (x, y, masse, coef, speed = new Speed(), forces = []) {
-        this.startY = x;
-        this.startX = y;
-        this.x = x;
-        this.y = y;
-        this.masse = masse;
-        this.coef = coef;
-        this.speed = speed;
+        this.startY = x
+        this.startX = y
+        this.x = x
+        this.y = y
+        this.masse = masse
+        this.coef = coef
+        this.speed = speed
     
-        this.forces = forces;
-        this.muscleForces = [];
+        this.forces = forces
+        this.muscleForces = []
         
 
         /**
@@ -31,7 +31,7 @@ class Objet {
          * 
          */
 
-        this.typeForces = [this.muscleForces, [], [], this.forces];
+        this.typeForces = [this.muscleForces, [], [], this.forces]
 
     }
 
@@ -44,94 +44,94 @@ class Objet {
 
     addForce(force, type = 1) {
 
-        this.typeForces[type].push(force);
+        this.typeForces[type].push(force)
 
     }
     
     removeMuscleForce(){
-        this.typeForces[0] = [];
+        this.typeForces[0] = []
         this.typeForces[3] = []
     }
 
     removeForces(){
         
-        this.typeForces[0] = [];
-        this.typeForces[1] = [];
-        this.typeForces[2] = [];
-        this.typeForces[3] = [];
+        this.typeForces[0] = []
+        this.typeForces[1] = []
+        this.typeForces[2] = []
+        this.typeForces[3] = []
         
     }
 
     getForces(){
 
-        return this.typeForces.forces;
+        return this.typeForces.forces
 
     }
 
     applyGravity(gAcc){
-        this.typeForces[1][0] = new Force(0, this.masse * gAcc.composanteY);
+        this.typeForces[1][0] = new Force(0, this.masse * gAcc.composanteY)
     }
 
     removeGravity(){
-        this.typeForces[1][0] = new Force();
+        this.typeForces[1][0] = new Force()
     }
     
     getResultante() {
 
-        let vecteurResultant = new Vecteur();
+        let vecteurResultant = new Vecteur()
 
         this.typeForces.forEach(type => {
 
             type.forEach(force => {
 
-                vecteurResultant.composanteX += force.composanteX;
-                vecteurResultant.composanteY += force.composanteY;
+                vecteurResultant.composanteX += force.composanteX
+                vecteurResultant.composanteY += force.composanteY
 
-            });
+            })
 
-        });
+        })
         
-        let resultante = new Force(vecteurResultant.composanteX, vecteurResultant.composanteY);
-        return resultante;
+        let resultante = new Force(vecteurResultant.composanteX, vecteurResultant.composanteY)
+        return resultante
     }   
 
     
     getAcceleration() {
 
-        let resultante = this.getResultante();
-        let acc = new Acceleration( resultante.composanteX / this.masse, resultante.composanteY / this.masse);
-        return acc;
+        let resultante = this.getResultante()
+        let acc = new Acceleration( resultante.composanteX / this.masse, resultante.composanteY / this.masse)
+        return acc
 
     }
 
     generateContact(nx,ny){
-        let vNormal, fNormal, fx, fy;
-        let vx = this.getSpeed().composanteX;
-        let vy = this.getSpeed().composanteY;
-        vNormal = vx * nx + vy * ny;
-        fNormal = -(1 + this.coef) * vNormal * this.masse / 1;
-        fx = fNormal * nx;
-        fy = fNormal * ny;
+        let vNormal, fNormal, fx, fy
+        let vx = this.getSpeed().composanteX
+        let vy = this.getSpeed().composanteY
+        vNormal = vx * nx + vy * ny
+        fNormal = -(1 + this.coef) * vNormal * this.masse / 1
+        fx = fNormal * nx
+        fy = fNormal * ny
         this.addForce(new Force(fx,fy),3)
     }
 
     getSpeed() {
 
-        return this.speed;
+        return this.speed
 
     }
 
     getIntSpeed(){
 
-        return this.speed.getNorme();
+        return this.speed.getNorme()
 
     }
 
     updateSpeed(){
 
-        let acceleration = this.getAcceleration();
-        this.speed.composanteX += acceleration.composanteX;
-        this.speed.composanteY += acceleration.composanteY;
+        let acceleration = this.getAcceleration()
+        this.speed.composanteX += acceleration.composanteX
+        this.speed.composanteY += acceleration.composanteY
 
     }
 
@@ -142,10 +142,10 @@ class Objet {
     
     updatePosition() {
         
-        this.updateSpeed();
+        this.updateSpeed()
         
-        this.y += this.speed.composanteY;
-        this.x += this.speed.composanteX;
+        this.y += this.speed.composanteY
+        this.x += this.speed.composanteX
         
     }
 
@@ -154,12 +154,12 @@ class Objet {
         /**
          * A REVOIR !!! 
          */
-        this.startX = Logic.alterate(this.startX,pourcent,100,200);
-        this.startY = Logic.alterate(this.startY,pourcent,100,200);
-        this.masse = Logic.alterate(this.masse,pourcent,500,700);
-        this.coef = Logic.alterate(this.coef,pourcent,0,1);
-        this.x = this.startX;
-        this.y = this.startY;
+        this.startX = Logic.alterate(this.startX,pourcent,100,200)
+        this.startY = Logic.alterate(this.startY,pourcent,100,200)
+        this.masse = Logic.alterate(this.masse,pourcent,500,700)
+        this.coef = Logic.alterate(this.coef,pourcent,0,1)
+        this.x = this.startX
+        this.y = this.startY
 
 
     }
@@ -169,15 +169,15 @@ class RoundObjet extends Objet{
     
     constructor (x, y, masse, coef, speed = new Speed(), forces = []) {
             
-        super(x,y,masse,coef,speed,forces);
-        this.radius = Math.sqrt(masse/(Math.PI));
-        //this.radius = radius;
+        super(x,y,masse,coef,speed,forces)
+        this.radius = Math.sqrt(masse/(Math.PI))
+        //this.radius = radius
     
     }
 
     alterate(pourcent){
-        super.alterate(pourcent);
-        this.radius = Math.sqrt(this.masse/(Math.PI));
+        super.alterate(pourcent)
+        this.radius = Math.sqrt(this.masse/(Math.PI))
     }
     
 }

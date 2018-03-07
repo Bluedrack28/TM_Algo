@@ -9,14 +9,14 @@ class Logic {
      * @param {*} max 
      */
     static alterate(value,pourcent,min,max){
-        let newValue;
+        let newValue
         if(Math.random() > 0.5){
-            newValue = value + Math.random() * pourcent * value * max;
-            if(newValue >= max) newValue = max;
+            newValue = value + Math.random() * pourcent * value * max
+            if(newValue >= max) newValue = max
             
         }else{
-            newValue = value - Math.random() * pourcent * value * max;
-            if(newValue <= min) newValue = min;
+            newValue = value - Math.random() * pourcent * value * max
+            if(newValue <= min) newValue = min
         }
         
     }

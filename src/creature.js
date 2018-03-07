@@ -2,17 +2,17 @@
 class Creature {
     
     constructor (objets = [], muscles = []) {
-        this.objets = objets;
-        this.muscles = muscles;
+        this.objets = objets
+        this.muscles = muscles
         
     }
     
     static getRandomCreature () {
         
-        let objets = [];
-        let objet;
-        let muscles = [];
-        let muscle;
+        let objets = []
+        let objet
+        let muscles = []
+        let muscle
         
         for (let i = 0; i < 3; i++) {
 
@@ -20,63 +20,63 @@ class Creature {
                                     Random.getRandomInt(50,250),
                                     Random.getRandomInt(300,1000),
                                     Math.random()
-                                );
-            objets.push(objet);
+                                )
+            objets.push(objet)
         }
         
-        for (let i = 0; i < objets.length - 1 ; i++) {
-            for (let j = i; j < objets.length - 1 ; j++) {
+        for (let i = 0; i < objets.length - 1;  i++) {
+            for (let j = i; j < objets.length - 1;  j++) {
                 
                 if (Math.random() > 0.2) {
                     muscle = new Muscle(objets[i],
                         objets[j+1],
                         [new Motion(Random.getRandomInt(10,20), Random.getRandomInt(10,10)),
                         new Motion(Random.getRandomInt(10,20), Random.getRandomInt(6,10))],
-                        Random.getRandomInt(60,75), Random.getRandomInt(100,160));
-                    muscles.push(muscle);
+                        Random.getRandomInt(60,75), Random.getRandomInt(100,160))
+                    muscles.push(muscle)
                 }
 
             }
         }
         
-        let creature = new Creature(objets, muscles);
-        return creature;
+        let creature = new Creature(objets, muscles)
+        return creature
     
     }   
 
     alterate(pourcent){
 
         creature.muscles.forEach(muscle => {
-            muscle.alterate(pourcent);
-        });
+            muscle.alterate(pourcent)
+        })
 
         creature.objets.forEach(objet => {
-            objet.alterate(pourcent);
-        });
+            objet.alterate(pourcent)
+        })
 
     }
 
     getScore(){
-        let score = 0;
+        let score = 0
         this.objets.forEach(objet => {
-            score += objet.x;
-        });
-        score = score / this.objets.length;
-        return score;
+            score += objet.x
+        })
+        score = score / this.objets.length
+        return score
     }
 
     update(){
         this.muscles.forEach(muscle => {
             
-            muscle.setForcesToObjets();
+            muscle.setForcesToObjets()
             
-        });
+        })
         this.objets.forEach(objet => {
             
-            objet.updatePosition();
-            objet.removeMuscleForce();
+            objet.updatePosition()
+            objet.removeMuscleForce()
             
-        });
+        })
 
     }
 
@@ -84,10 +84,10 @@ class Creature {
 
 class ScoredCreature {
     constructor(creature,score){
-        this.creature = creature;
-        this.score = score;
+        this.creature = creature
+        this.score = score
     }
     getCreature(){
-        return new Creature(this.creature.objets,this.creature.muscle);
+        return new Creature(this.creature.objets,this.creature.muscle)
     }
 }

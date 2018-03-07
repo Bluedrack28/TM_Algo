@@ -8,13 +8,13 @@ class Motion {
 
     constructor(power, duration){
 
-        this.power = power;
-        this.duration = duration;
+        this.power = power
+        this.duration = duration
 
     }
     alterate(pourcent){
-        this.power = Logic.alterate(this.power,pourcent,1,10);
-        this.duration = Logic.alterate(this.duration,pourcent,1,10);
+        this.power = Logic.alterate(this.power,pourcent,1,10)
+        this.duration = Logic.alterate(this.duration,pourcent,1,10)
     }
     
 }
@@ -30,12 +30,12 @@ class Muscle {
  
      constructor(objet1, objet2, motions = [], longueurMin, longueurMax){
  
-         this.objet1 = objet1;
-         this.objet2 = objet2;
-         this.motions = motions;
-         this.longueurMin = longueurMin;
-         this.longueurMax = longueurMax;
-         this.step = 0;
+         this.objet1 = objet1
+         this.objet2 = objet2
+         this.motions = motions
+         this.longueurMin = longueurMin
+         this.longueurMax = longueurMax
+         this.step = 0
          
      }
  
@@ -45,34 +45,34 @@ class Muscle {
     */
     getForce(objet, step){
  
-        let facteur = 1 * this.motions[this.step].power / this.motions[this.step].duration;
-        let vecteur = Vecteur.produit(this.returnVecteur(), facteur);
+        let facteur = 1 * this.motions[this.step].power / this.motions[this.step].duration
+        let vecteur = Vecteur.produit(this.returnVecteur(), facteur)
          
         if (this.objet1 != objet) {
  
-            vecteur = Vecteur.getReverse(vecteur);
+            vecteur = Vecteur.getReverse(vecteur)
  
         }
  
-        let force;
+        let force
  
         if ( step === 0 ) {
  
-            force = new MuscleForce(vecteur.composanteX, vecteur.composanteY);
+            force = new MuscleForce(vecteur.composanteX, vecteur.composanteY)
  
         } else {
  
-            force = new MuscleForce(-vecteur.composanteX, -vecteur.composanteY);
+            force = new MuscleForce(-vecteur.composanteX, -vecteur.composanteY)
          
         }
  
-        return force;
+        return force
  
     }
      
      returnVecteur() {
  
-        return Vecteur.getVecteurBetweenTwoObjets(this.objet1, this.objet2);
+        return Vecteur.getVecteurBetweenTwoObjets(this.objet1, this.objet2)
  
      }
  
@@ -82,14 +82,14 @@ class Muscle {
              
             if( this.returnVecteur().getNorme() < this.longueurMin ){
  
-                this.step = 1;
-                this.objet1.speed = new Speed();
-                this.objet2.speed = new Speed();
+                this.step = 1
+                this.objet1.speed = new Speed()
+                this.objet2.speed = new Speed()
  
             }else{
  
-                this.objet1.typeForces[0].push(this.getForce(this.objet1, this.step));
-                this.objet2.typeForces[0].push(this.getForce(this.objet2, this.step));
+                this.objet1.typeForces[0].push(this.getForce(this.objet1, this.step))
+                this.objet2.typeForces[0].push(this.getForce(this.objet2, this.step))
  
             }
  
@@ -97,14 +97,14 @@ class Muscle {
  
              if(this.returnVecteur().getNorme() > this.longueurMax){
  
-                this.step = 0;
-                this.objet1.speed = new Speed();
-                this.objet2.speed = new Speed();
+                this.step = 0
+                this.objet1.speed = new Speed()
+                this.objet2.speed = new Speed()
                  
              }else{
  
-                this.objet1.typeForces[0].push(this.getForce(this.objet1, this.step));
-                this.objet2.typeForces[0].push(this.getForce(this.objet2, this.step));
+                this.objet1.typeForces[0].push(this.getForce(this.objet1, this.step))
+                this.objet2.typeForces[0].push(this.getForce(this.objet2, this.step))
  
             }
         }
@@ -114,10 +114,10 @@ class Muscle {
          * A (RE)VOIR !!! 
          */
         this.motions.forEach(motion => {
-            motion.alterate(pourcent);
-        });
-        this.longueurMin = Logic.alterate(this.longueurMin,pourcent,50,70);
-        this.longueurMax = Logic.alterate(this.longueurMax,pourcent,70,100);
+            motion.alterate(pourcent)
+        })
+        this.longueurMin = Logic.alterate(this.longueurMin,pourcent,50,70)
+        this.longueurMax = Logic.alterate(this.longueurMax,pourcent,70,100)
         
     }
 
