@@ -1,5 +1,7 @@
 # Projet de travail de Maturité
 
+#Problème en cours
+Les muscles et la répartition des forces appliqués sur le Objet devrait être revue entièrement.
 
 # Reference
 https://stackoverflow.com/questions/5767325/how-do-i-remove-a-particular-element-from-an-array-in-javascript

@@ -17,7 +17,6 @@ class Objet {
         this.masse = masse
         this.coef = coef
         this.speed = speed
-    
         this.forces = forces
         this.muscleForces = []
         
@@ -48,6 +47,10 @@ class Objet {
 
     }
     
+    /*
+        revoir les différence entre removeMuscleForce et removeForeces pour que leur utilisation deviennent plus cohérente
+    */
+
     removeMuscleForce(){
         this.typeForces[0] = []
         this.typeForces[3] = []
@@ -104,6 +107,9 @@ class Objet {
 
     }
 
+    /**
+     * Fonction venue de Youtube: https://www.youtube.com/watch?v=nSxEeVqRxmY
+     */
     generateContact(nx,ny){
         let vNormal, fNormal, fx, fy
         let vx = this.getSpeed().composanteX
@@ -161,7 +167,6 @@ class Objet {
         this.x = this.startX
         this.y = this.startY
 
-
     }
 
 }
@@ -171,7 +176,6 @@ class RoundObjet extends Objet{
             
         super(x,y,masse,coef,speed,forces)
         this.radius = Math.sqrt(masse/(Math.PI))
-        //this.radius = radius
     
     }
 

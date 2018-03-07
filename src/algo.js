@@ -38,7 +38,7 @@ class Algo {
         }
     }
     /**
-     * Stop l'alogo
+     * Stop l'algo
      */
     stop(){
         this.pause = true
@@ -75,6 +75,7 @@ class Algo {
     pourcentAlterate(index,length){
         return 1 - 1/((1/length)*index**2+ 1)
     }
+
     /**
      * 
      * Modfifie un peux la meilleur creature. Tue les moins bonne et en cree de nouvelle.
@@ -84,7 +85,6 @@ class Algo {
         //!!! FONCTIONNE PAS ATTENTION
         let results = this.result()
         let length = results.length
-        //console.log(results)
         for (let i = 0; i  < results.length; i++) {
             if(i <= this.LIMIT){
                 results[i].alterate(this.pourcentAlterate(i,length))

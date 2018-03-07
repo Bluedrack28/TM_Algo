@@ -12,7 +12,11 @@ class Ground {
 
 class Physique {
 
-    constructor(creatures = [], ground = new Ground(), gAcc = new Acceleration(0,0.2)){
+    constructor(
+        creatures = [],
+        ground = new Ground(),
+        gAcc = new Acceleration(0,0.01)
+    ){
         this.gAcc = gAcc
         this.creatures = creatures
         this.ground = ground
@@ -23,7 +27,6 @@ class Physique {
     
     addCreature(creature) {
 
-        //this.applyGravity(creature)
         this.creatures.push(creature)
 
     }
@@ -38,11 +41,13 @@ class Physique {
 
         creature.objets.forEach(objet => {
 
-            objet.addForce(new Force(
-                objet.masse * this.gAcc.composanteX,
-                objet.masse * this.gAcc.composanteY
-            ), 
-            1)
+            objet.addForce(
+                new Force(
+                    objet.masse * this.gAcc.composanteX,
+                    objet.masse * this.gAcc.composanteY
+                ),
+                1
+            )
 
         })
     
@@ -53,42 +58,14 @@ class Physique {
         this.creatures.forEach(creature => {
             
             creature.update()
-            
+            this.applyGravity(creature)
             creature.objets.forEach(objet => {
                 if(objet.y >= this.ground.level - objet.radius){
                     objet.y = this.ground.level - objet.radius
                     objet.generateContact(0,-1)
                 }
-                /* 
-                
-                if(objet.y + objet.radius >= this.ground.level){
-
-                    let res = objet.getResultante()
-                    
-                    //objet.removeForces()
-
-                    if(objet.speed.composanteY >= 0){
-                        
-                        objet.speed.composanteY *= -objet.coef
-                        objet.speed.composanteX *= -objet.coef
-                        objet.y  = this.ground.level - objet.radius
-                        //objet.removeForces()
-                        //console.log(objet)
-                        objet.addForce(new Force(res.composanteX*objet.coef , res.composanteX ), 2)                   
-                    }
-
-                } else {
-
-                    objet.applyGravity(this.gAcc)
-                    
-                }
-                */
-
             })
-            
         })
-
     } 
-
 }
 //module.exports = Objet
