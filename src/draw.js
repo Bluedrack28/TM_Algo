@@ -7,7 +7,7 @@ class Draw {
 
 
     drawCreature(creature){
-        
+        this.drawCreatureCenter(creature)
         creature.muscles.forEach(muscle => {
             
             this.drawVector(muscle.objet1, muscle.objet2)
@@ -24,6 +24,24 @@ class Draw {
 
         })
         
+    }
+    drawCreatureCenter(creature){
+        
+        let x = 0,
+            y = 0
+        creature.objets.forEach(objet => {
+            x += objet.x
+            y += objet.y
+        })
+        x = x / creature.objets.length
+        y = y / creature.objets.length
+        this.context.beginPath()
+        this.context.fillStyle = 'red'
+        this.context.arc(x, y, 10, 0, 2 * Math.PI)
+        this.context.lineWidth = 2
+        this.context.stroke()        
+        this.context.fill()
+
     }
     drawCreatureStatic(creature) {
         creature.muscles.forEach(muscle => {
