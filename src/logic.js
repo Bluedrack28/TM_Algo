@@ -14,7 +14,7 @@ class Logic {
             newValue = value + Math.random() * pourcent * value * max
             if(newValue >= max) newValue = max
             
-        }else{
+        } else {
             newValue = value - Math.random() * pourcent * value * max
             if(newValue <= min) newValue = min
         }

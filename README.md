@@ -1,5 +1,15 @@
 # Projet de travail de Maturité
 
+
+# A faire 
+
+Titre et descriptif 
+
+
+Graphiques 
+# Descritif
+sous-titre questions à resoudre, etc.
+
 #Problème en cours
 Les muscles et la répartition des forces appliqués sur le Objet devrait être revue entièrement.
 
