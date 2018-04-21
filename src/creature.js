@@ -33,11 +33,11 @@ class Creature {
                     muscle = new Muscle(
                         objets[i],
                         objets[j+1],
-                        [
-                            new Motion(Random.getRandomInt(10,20), Random.getRandomInt(10,10)),
-                            new Motion(Random.getRandomInt(10,20), Random.getRandomInt(6,10))
-                        ],
-                        Random.getRandomInt(60,75), Random.getRandomInt(100,160)
+                        1000,
+                        10,
+                        10,
+                        100,
+                        200
                     )
                     muscles.push(muscle)
                 }
@@ -74,8 +74,8 @@ class Creature {
     update(){
         this.muscles.forEach(muscle => {
             
-            muscle.setForcesToObjets()
-            
+            //muscle.setForcesToObjets()
+            muscle.update()
         })
         this.objets.forEach(objet => {
             

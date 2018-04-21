@@ -25,18 +25,55 @@ class Muscle {
     * Un muscle connecte toujours deux objets / RoundObjets.
     * @param {*} objet1 Premier Objet ou le muscle est connecter.
     * @param {*} objet2 Deuxieme Objet ou le muscle est connecter.
+    * @param {*} t0 temps d'extention
+    * @param {*} t1 temps de contration
     * @param {*} motions Est un objet de type Motion qui definie les extention du muscle et ses rétractions. Le muscle aura deux motion un pour la retractation et un autre pour la dilatiation.
     */
  
-     constructor(objet1, objet2, motions = [], longueurMin, longueurMax){
- 
+     constructor(objet1, objet2, k ,t0, t1, longueurMin, longueurMax){
+        
          this.objet1 = objet1
          this.objet2 = objet2
-         this.motions = motions
+         this.k = k
+         this.phase = 0 // 0: phase t0, 1:phase t1
+         this.timer = 0
+         this.t0 = t0
+         this.t1 = t1
          this.longueurMin = longueurMin
          this.longueurMax = longueurMax
          this.step = 0
          
+     }
+     update(){
+        this.timer += 1
+        let force = this.getForceV2(this.objet1,this.objet2,this.phase)
+
+        if ( this.phase == 0 && this.timer <= this.t0){
+            if(this.timer >= this.t0){
+                this.phase = 1
+            }
+        } else if( this.phase == 1 && this.timer <= this.t1){
+            if(this.timer >= this.t1){
+                this.phase = 0
+            }
+            
+        }
+        //!!!!!!
+        
+        this.objet1.typeForces[0].push(force)
+        this.objet2.typeForces[0].push(new Force(-force.composanteX,-force.composanteY))
+
+     }
+
+     getForceV2(objet1,objet2,phase){
+        let v = Vecteur.getVecteurBetweenTwoObjets(objet1,objet2),
+            a = this.k / v.getNorme()//1/2 * this.k * v.getNorme() ^ 2
+        let vForce = Vecteur.produit(v,a)
+        if(phase === 0){
+            return new Force(vForce.composanteX,vForce.composanteY)
+        }else{
+            return new Force(vForce.composanteX,vForce.composanteY)
+        }
      }
  
      /**
