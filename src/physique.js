@@ -15,7 +15,7 @@ class Physique {
     constructor(
         creatures = [],
         ground = new Ground(),
-        gAcc = new Acceleration(0,0.0001)
+        gAcc = new Acceleration(0,0)
     ){
         this.gAcc = gAcc
         this.creatures = creatures
