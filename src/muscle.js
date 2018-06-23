@@ -46,22 +46,15 @@ class Muscle {
      }
      update(){
         this.timer += 1
-        let force = this.getForceV2(this.objet1,this.objet2,this.phase)
-
-        if ( this.phase == 0 && this.timer <= this.t0){
-            if(this.timer >= this.t0){
-                this.phase = 1
-            }
-        } else if( this.phase == 1 && this.timer <= this.t1){
-            if(this.timer >= this.t1){
-                this.phase = 0
-            }
-            
+        let v = Vecteur.getVecteurBetweenTwoObjets(this.objet1,this.objet2)
+        if ( v.getNorme() >= this.longueurMin) {
+            let f = 0.5 * this.k * (v.getNorme() - this.longueurMin) ^ 2
+            let vUnit = Vecteur.produit(v, 1/v.getNorme())
+            let vForce = Vecteur.produit(vUnit,f)
+            this.objet1.typeForces[0].push(vForce)
+            this.objet2.typeForces[0].push(new Force(-vForce.composanteX,-vForce.composanteY))
         }
-        //!!!!!!
         
-        this.objet1.typeForces[0].push(force)
-        this.objet2.typeForces[0].push(new Force(-force.composanteX,-force.composanteY))
 
      }
 
@@ -158,9 +151,4 @@ class Muscle {
         
     }
 
-}
-class MuscleNew {
-    constructor(objet1,objet2,stenght,longueurMax,longueurMin){
-
-    }
 }

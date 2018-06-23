@@ -33,7 +33,7 @@ class Creature {
                     muscle = new Muscle(
                         objets[i],
                         objets[j+1],
-                        1000,
+                        1,
                         10,
                         10,
                         100,
