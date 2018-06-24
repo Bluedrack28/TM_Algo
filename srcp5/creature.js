@@ -19,8 +19,8 @@ class Creature {
             node = new Node(
                 random(50,250),
                 random(50,250),
-                random(1,10),
-                Math.random()
+                random(1,3),
+                random()
             )
             nodes.push(node)
         }
@@ -61,6 +61,7 @@ class Creature {
             muscle.update()
         })
         this.nodes.forEach(node => {
+            node.applyForce(createVector(0,10))
             node.update()
         })
     }
