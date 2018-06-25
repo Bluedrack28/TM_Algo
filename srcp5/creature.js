@@ -61,7 +61,7 @@ class Creature {
             muscle.update()
         })
         this.nodes.forEach(node => {
-            node.applyForce(createVector(0,10))
+            //node.applyForce(createVector(0,10))
             node.update()
         })
     }

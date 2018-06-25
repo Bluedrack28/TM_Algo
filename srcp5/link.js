@@ -7,11 +7,16 @@ class Link {
     }
 
     update(){
+        
         let v = this.getVectorUnit(),
             i = 0.5*this.k*(this.getVector().mag()-this.l),
             force = v.mult(i)
         this.n0.applyForce(force)
         this.n1.applyForce(force.mult(-1))
+
+        
+        //this.n0.velocity.mult(0.3)
+        //this.n1.velocity.mult(0.3)
     }
     display(){
         strokeWeight(10)

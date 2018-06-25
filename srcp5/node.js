@@ -11,8 +11,10 @@ class Node {
 		this.acceleration.add(f)
 	}
 	update () {
+        this.applyForce(createVector(0,1))
 		this.velocity.add(this.acceleration)
-		this.velocity = this.velocity.mult(0.3)
+        //this.velocity = this.velocity.mult(0.9)
+        
 		this.position.add(this.velocity)
         this.acceleration.mult(0)
         this.checkEdges()
@@ -38,16 +40,20 @@ class Node {
 
     generateFriction(nx,ny){
         let n = createVector(nx,ny)
-        n = n.rotate(PI)
-        this.applyForce(n.normalize().mult(this.acceleration.x*this.mu))
+        n = n.rotate(PI/2)
+        let fx = -this.acceleration*this.mass*this.mu*nx
+        let fy = -this.acceleration*this.mass*this.mu*ny
+        let f = n.normalize().mult(this.acceleration.mag()*this.mass*this.mu)
+        //console.log(f)
+        this.applyForce(createVector(fx,fy))
     }
 
 	checkEdges () {
 		if (this.position.y > (height - this.mass * 8)) {
-        // A little dampening when hitting the bottom
-        this.generateContact(0,-1)
-        this.position.y = (height - this.mass * 8)
-
+            // A little dampening when hitting the bottom
+            this.generateFriction(0,-1)
+            this.generateContact(0,-1)
+            this.position.y = (height - this.mass * 8)
 		}
 	}
 }
