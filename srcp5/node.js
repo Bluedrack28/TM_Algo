@@ -11,13 +11,18 @@ class Node {
 		this.acceleration.add(f)
 	}
 	update () {
-        this.applyForce(createVector(0,1))
+        
+        //console.log(-1*this.velocity.x,-1*this.velocity.y)
+        
+        this.applyForce(createVector(-this.velocity.x*0.3,-this.velocity.y*0.3))
+        this.applyForce(createVector(0,4*this.mass))
 		this.velocity.add(this.acceleration)
         //this.velocity = this.velocity.mult(0.9)
         
 		this.position.add(this.velocity)
         this.acceleration.mult(0)
         this.checkEdges()
+        
 
 	}
 	display () {
@@ -51,9 +56,11 @@ class Node {
 	checkEdges () {
 		if (this.position.y > (height - this.mass * 8)) {
             // A little dampening when hitting the bottom
-            this.generateFriction(0,-1)
-            this.generateContact(0,-1)
+            this.velocity.x *= this.mu
+            if(this.velocity.y < 1) this.velocity.y = 0
+            this.velocity.y *= -this.mu
             this.position.y = (height - this.mass * 8)
+
 		}
 	}
 }

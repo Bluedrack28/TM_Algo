@@ -33,13 +33,13 @@ class Creature {
                         nodes[i],
                         nodes[j+1],
                         1,
-                        random(50,150)
+                        random(50,100)
                     )
                     links.push(link)
                     muscle = new Muscle(
                         nodes[i],
                         nodes[j+1],
-                        random(10,100),
+                        random(1,10),
                         random(0,100),
                         random(0,100)
                     )
@@ -77,5 +77,14 @@ class Creature {
             node.display()
         })
     }
+    
+    score(){
+        let score = 0
+        this.nodes.forEach(node => {
+            score += node.position.x
+        });
+        score /= this.nodes.length
+        return score
+    }   
 
 }
