@@ -8,7 +8,7 @@ class Muscle {
 		this.t1 = t1
 		this.power = power
 	}
-	
+
 	update(){
 		
 		if(this.t0 > this.clock && this.t1 > this.clock){
@@ -36,7 +36,9 @@ class Muscle {
 		return this.getVector().normalize()
 	}
 
-	alterate(){
-
+	alterate(pourcent){
+		this.t0 = Logic.alterate(this.t0,pourcent,0,100)
+		this.t1 = Logic.alterate(this.t1,pourcent,0,100)
+		this.power = Logic.alterate(this.power,pourcent,10,50)
 	}
 }

@@ -67,7 +67,13 @@ class Node {
 
 		}
     }
-    alterate(){
-        
+    alterate(pourcent){
+        this.position = createVector(
+            Logic.alterate(this.originalPosition.x,pourcent,50,250),
+            Logic.alterate(this.originalPosition.y,pourcent,50,250)
+        )
+        this.mass = Logic.alterate(this.mass,pourcent,9,10)
+        this.mu = Logic.alterate(this.mu,pourcent,0.3,1)
+
     }
 }

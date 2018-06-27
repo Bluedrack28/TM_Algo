@@ -1,6 +1,6 @@
 new p5();
 let date = new Date()
-let algo = new Algorithm(10,1000)
+let algo = new Algorithm(1,500)
 let cre = new Creature()
 cre.nodes = [
 	new Node(100,150,2,0),
@@ -34,8 +34,4 @@ function draw () {
 	background(255)
 	algo.update()
 	algo.display()
-}
-function mouseClicked() {
-	console.log('salut')
-	save('save.png')
 }
