@@ -32,14 +32,14 @@ class Creature {
                     link = new Link(
                         nodes[i],
                         nodes[j+1],
-                        1,
+                        2,
                         random(50,100)
                     )
                     links.push(link)
                     muscle = new Muscle(
                         nodes[i],
                         nodes[j+1],
-                        1,
+                        10,
                         random(0,100),
                         random(0,100)
                     )
@@ -61,7 +61,6 @@ class Creature {
             muscle.update()
         })
         this.nodes.forEach(node => {
-            //node.applyForce(createVector(0,10))
             node.update()
         })
     }
@@ -87,4 +86,15 @@ class Creature {
         return score
     }   
 
+    alterate(pourcent){
+        this.links.forEach(link => {
+            link.alterate(pourcent)
+        })
+        this.muscles.forEach(muscle => {
+            muscle.alterate(pourcent)
+        })
+        this.nodes.forEach(node => {
+            node.alterate(pourcent)
+        })
+    }
 }

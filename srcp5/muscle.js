@@ -8,6 +8,7 @@ class Muscle {
 		this.t1 = t1
 		this.power = power
 	}
+	
 	update(){
 		
 		if(this.t0 > this.clock && this.t1 > this.clock){
@@ -20,15 +21,22 @@ class Muscle {
 		this.clock += 1
 		if(this.clock >= 100) this.clock = 0
 	}
+
 	display(){
 		strokeWeight(10)
 		fill(10,10,10)
 		line(this.n0.position.x,this.n0.position.y,this.n1.position.x,this.n1.position.y)
 	}
+
 	getVector(){
 		return createVector(this.n1.position.x-this.n0.position.x,this.n1.position.y-this.n0.position.y)
 	}
+
 	getVectorUnit(){
 		return this.getVector().normalize()
+	}
+
+	alterate(){
+
 	}
 }

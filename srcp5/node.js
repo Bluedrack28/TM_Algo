@@ -3,12 +3,12 @@ class Node {
     
     constructor (x, y, m, mu) {
         this.r = 4
+        this.originalPosition = createVector(x, y)
 		this.position = createVector(x, y)
 		this.velocity = createVector(0, 0)
         this.acceleration = createVector(0, 0)
         this.mass = m
         this.mu = mu
-        console.log(this.r)
 	}
 	applyForce (force) {
 		var f = p5.Vector.div(force, this.mass)
@@ -19,7 +19,7 @@ class Node {
         //console.log(-1*this.velocity.x,-1*this.velocity.y)
         
         this.applyForce(createVector(-this.velocity.x*0.3,-this.velocity.y*0.3))
-        this.applyForce(createVector(0,4*this.mass))
+        this.applyForce(createVector(0,2*this.mass))
 		this.velocity.add(this.acceleration)
         //this.velocity = this.velocity.mult(0.9)
         
@@ -66,5 +66,8 @@ class Node {
             this.position.y = (height - this.mass * this.r/2)
 
 		}
-	}
+    }
+    alterate(){
+        
+    }
 }
