@@ -1,10 +1,14 @@
+
 class Node {
+    
     constructor (x, y, m, mu) {
+        this.r = 4
 		this.position = createVector(x, y)
 		this.velocity = createVector(0, 0)
         this.acceleration = createVector(0, 0)
         this.mass = m
         this.mu = mu
+        console.log(this.r)
 	}
 	applyForce (force) {
 		var f = p5.Vector.div(force, this.mass)
@@ -29,7 +33,7 @@ class Node {
 		stroke(0)
 		strokeWeight(2)
 		fill(this.mu*255)
-		ellipse(this.position.x, this.position.y, this.mass * 16, this.mass * 16)
+		ellipse(this.position.x, this.position.y, this.mass * this.r, this.mass * this.r)
     }
 
     generateContact(nx,ny){
@@ -54,12 +58,12 @@ class Node {
     }
 
 	checkEdges () {
-		if (this.position.y > (height - this.mass * 8)) {
+		if (this.position.y > (height - this.mass * this.r/2)) {
             // A little dampening when hitting the bottom
             this.velocity.x *= this.mu
             if(this.velocity.y < 1) this.velocity.y = 0
             this.velocity.y *= -this.mu
-            this.position.y = (height - this.mass * 8)
+            this.position.y = (height - this.mass * this.r/2)
 
 		}
 	}

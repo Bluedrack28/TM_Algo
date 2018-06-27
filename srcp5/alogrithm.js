@@ -1,8 +1,8 @@
 class Algorithm {
 
-    constructor(size,clock){
+    constructor(size,clock,nGeneration,){
         this.size = size
-        th
+        
     }
 
 

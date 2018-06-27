@@ -19,7 +19,7 @@ class Creature {
             node = new Node(
                 random(50,250),
                 random(50,250),
-                random(1,3),
+                random(9,10),
                 random()
             )
             nodes.push(node)
@@ -28,7 +28,7 @@ class Creature {
         for (let i = 0; i < nodes.length - 1;  i++) {
             for (let j = i; j < nodes.length - 1;  j++) {
                 
-                if (Math.random() > 0.2) {
+                if (Math.random() > 0) {
                     link = new Link(
                         nodes[i],
                         nodes[j+1],
@@ -39,7 +39,7 @@ class Creature {
                     muscle = new Muscle(
                         nodes[i],
                         nodes[j+1],
-                        random(1,10),
+                        1,
                         random(0,100),
                         random(0,100)
                     )
