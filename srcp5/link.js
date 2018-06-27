@@ -31,7 +31,7 @@ class Link {
 
     alterate(pourcent){
         this.k = Logic.alterate(this.k,pourcent,2,3)
-        this.l = Logic.alterate(this.l,pourcent,50,100)
+        this.l = Logic.alterate(this.l,pourcent,75,125)
     }
 }
     

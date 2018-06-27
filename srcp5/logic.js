@@ -10,9 +10,9 @@ class Logic {
      */
     static alterate(value,pourcent,min,max){
         let newValue
-        newValue = value * (1 + random(-1,1) * pourcent)
+        newValue = value * (1 + random(-1,1) * pourcent*0.1)
         if(newValue >= max) newValue = max
-        if(newValue <=min) newValue = min 
+        if(newValue <= min) newValue = min 
         return newValue
     }
 

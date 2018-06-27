@@ -74,6 +74,5 @@ class Node {
         )
         this.mass = Logic.alterate(this.mass,pourcent,9,10)
         this.mu = Logic.alterate(this.mu,pourcent,0.3,1)
-
     }
 }

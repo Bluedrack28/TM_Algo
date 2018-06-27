@@ -39,6 +39,6 @@ class Muscle {
 	alterate(pourcent){
 		this.t0 = Logic.alterate(this.t0,pourcent,0,100)
 		this.t1 = Logic.alterate(this.t1,pourcent,0,100)
-		this.power = Logic.alterate(this.power,pourcent,10,50)
+		this.power = Logic.alterate(this.power,pourcent,90,100)
 	}
 }

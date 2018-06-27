@@ -1,9 +1,13 @@
 class Algorithm {
 
-    constructor(size,clock){
+    constructor(size,clock,lim0,lim1){
         this.size = size
         this.clock = clock
+        this.lim0 = lim0
+        this.lim1 = lim1
         this.previousBestScore = 0
+        this.history = []
+        this.improvement = 0
         this.time = 0
         this.generation = 0
         this.pool = []
@@ -30,11 +34,12 @@ class Algorithm {
     }
 
     display(){
-        noStroke()
+        strokeWeight(0)
         fill(0)
-        textSize(32)
+        textSize(16)
         text('Generation:'+this.generation, 10, 30)
         text('Previous best score:'+this.previousBestScore, 10, 60)
+        text('Improvement:'+this.improvement, 10, 90)
 
         this.pool.forEach(creature => {
             creature.display()
@@ -44,13 +49,19 @@ class Algorithm {
     nextGeneration(){
         this.time = 0
         this.generation += 1
-        let nextPool = this.result()
-        this.previousBestScore = nextPool[0].score()
-        nextPool.forEach((creature,index) => {
-            console.log(this.pourcentAlterate(index))
+        let pool = this.result()
+        
+        this.previousBestScore = Math.floor(this.result()[0].score())
+        this.history.push(this.previousBestScore)
+        if(this.generation > 1){
+            let a = this.history[this.history.length-1],
+                b = this.history[this.history.length-2]
+                console.log(a,b)
+            this.improvement = a - b
+        }
+        pool.forEach((creature,index) => {
             creature.alterate(this.pourcentAlterate(index))
-        })
-        this.pool = nextPool
+        });
     }
 
     pourcentAlterate(index){

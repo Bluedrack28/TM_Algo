@@ -33,7 +33,7 @@ class Creature {
                         nodes[i],
                         nodes[j+1],
                         random(2,3),
-                        random(50,100)
+                        random(75,150)
                     )
                     links.push(link)
                     muscle = new Muscle(
@@ -87,6 +87,10 @@ class Creature {
     }   
 
     alterate(pourcent){
+        let links = []
+        let muscles = []
+        let nodes = []
+        
         this.links.forEach(link => {
             link.alterate(pourcent)
         })
@@ -96,5 +100,9 @@ class Creature {
         this.nodes.forEach(node => {
             node.alterate(pourcent)
         })
+        links = this.links
+        muscles = this.muscles
+        nodes = this.nodes
+        return new Creature(nodes,links,muscles)
     }
 }
