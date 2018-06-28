@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Bluedrack28/TM_Algo/issues"
   },
-  "homepage": "https://github.com/Bluedrack28/TM_Algo#readme"
+  "homepage": "https://github.com/Bluedrack28/TM_Algo#readme",
+  "dependencies": {
+    "ccapture.js": "^1.1.0"
+  }
 }

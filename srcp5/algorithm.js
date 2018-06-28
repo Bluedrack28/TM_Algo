@@ -29,6 +29,7 @@ class Algorithm {
             this.pool.forEach(creature => {
                 creature.update()
             });
+            this.result()
         }
         
     }
@@ -40,9 +41,16 @@ class Algorithm {
         text('Generation:'+this.generation, 10, 30)
         text('Previous best score:'+this.previousBestScore, 10, 60)
         text('Improvement:'+this.improvement, 10, 90)
+        let x = this.pool[0].score()
+        for (let i = 0; i < x+width; i+=50) {
+            fill(0)
+            strokeWeight(2)
+            line(i-x+200,height,i-x+200,height-100)
+            text(Math.floor(i),i-x+200,height-100)
+        }
 
         this.pool.forEach(creature => {
-            creature.display()
+            creature.display(x)
         });
     }
 
@@ -65,7 +73,7 @@ class Algorithm {
     }
 
     pourcentAlterate(index){
-        return 1 - 1/((1/this.size)*index**2+ 1)
+        return 1 - 1/((1/this.size)*index**2 + 1)
     }
 
     result(){

@@ -29,11 +29,11 @@ class Node {
         
 
 	}
-	display () {
+	display (x) {
 		stroke(0)
-		strokeWeight(2)
+        strokeWeight(2)
 		fill(this.mu*255)
-		ellipse(this.position.x, this.position.y, this.mass * this.r, this.mass * this.r)
+		ellipse(this.position.x-x+200, this.position.y, this.mass * this.r, this.mass * this.r)
     }
 
     generateContact(nx,ny){
@@ -53,18 +53,15 @@ class Node {
         let fx = -this.acceleration*this.mass*this.mu*nx
         let fy = -this.acceleration*this.mass*this.mu*ny
         let f = n.normalize().mult(this.acceleration.mag()*this.mass*this.mu)
-        //console.log(f)
         this.applyForce(createVector(fx,fy))
     }
 
 	checkEdges () {
 		if (this.position.y > (height - this.mass * this.r/2)) {
-            // A little dampening when hitting the bottom
             this.velocity.x *= this.mu
             if(this.velocity.y < 1) this.velocity.y = 0
             this.velocity.y *= -this.mu
             this.position.y = (height - this.mass * this.r/2)
-
 		}
     }
     alterate(pourcent){

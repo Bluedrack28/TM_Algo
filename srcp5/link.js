@@ -15,10 +15,10 @@ class Link {
         this.n1.applyForce(force.mult(-1))
     }
 
-    display(){
+    display(x){
         fill(0)
         strokeWeight(10)
-        line(this.n0.position.x,this.n0.position.y,this.n1.position.x,this.n1.position.y)
+        line(this.n0.position.x-x+200,this.n0.position.y,this.n1.position.x-x+200,this.n1.position.y)
     }
 
     getVector(){

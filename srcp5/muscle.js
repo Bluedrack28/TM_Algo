@@ -17,15 +17,15 @@ class Muscle {
 			this.n1.applyForce(force)
 			this.n0.applyForce(force.mult(-1))
 		}
-
+		
 		this.clock += 1
 		if(this.clock >= 100) this.clock = 0
 	}
 
-	display(){
+	display(x){
 		strokeWeight(10)
 		fill(10,10,10)
-		line(this.n0.position.x,this.n0.position.y,this.n1.position.x,this.n1.position.y)
+		line(this.n0.position.x-x+200,this.n0.position.y,this.n1.position.x-x+200,this.n1.position.y)
 	}
 
 	getVector(){
