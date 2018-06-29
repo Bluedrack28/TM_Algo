@@ -1,6 +1,7 @@
 class Algorithm {
 
     constructor(size,clock,lim0,lim1){
+        this.shift = 300
         this.size = size
         this.clock = clock
         this.lim0 = lim0
@@ -43,14 +44,15 @@ class Algorithm {
         text('Improvement:'+this.improvement, 10, 90)
         let x = this.pool[0].score()
         for (let i = 0; i < x+width; i+=50) {
+            strokeWeight(0)
+            text(Math.floor(i),i-x+this.shift,height-100)
             fill(0)
             strokeWeight(2)
-            line(i-x+200,height,i-x+200,height-100)
-            text(Math.floor(i),i-x+200,height-100)
+            line(i-x+this.shift,height,i-x+this.shift,height-100)
         }
 
         this.pool.forEach(creature => {
-            creature.display(x)
+            creature.display(x,this.shift)
         });
     }
 
@@ -58,7 +60,6 @@ class Algorithm {
         this.time = 0
         this.generation += 1
         let pool = this.result()
-        
         this.previousBestScore = Math.floor(this.result()[0].score())
         this.history.push(this.previousBestScore)
         if(this.generation > 1){

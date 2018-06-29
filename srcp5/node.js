@@ -29,11 +29,11 @@ class Node {
         
 
 	}
-	display (x) {
+	display (x,shift) {
 		stroke(0)
         strokeWeight(2)
 		fill(this.mu*255)
-		ellipse(this.position.x-x+200, this.position.y, this.mass * this.r, this.mass * this.r)
+		ellipse(this.position.x-x+shift, this.position.y, this.mass * this.r, this.mass * this.r)
     }
 
     generateContact(nx,ny){

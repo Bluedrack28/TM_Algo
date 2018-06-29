@@ -65,15 +65,15 @@ class Creature {
         })
     }
 
-    display(x){
+    display(x,shift){
         this.links.forEach(link => {
-            link.display(x)
+            link.display(x,shift)
         })
         this.muscles.forEach(muscle => {
-            muscle.display(x)
+            muscle.display(x,shift)
         })
         this.nodes.forEach(node => {
-            node.display(x)
+            node.display(x,shift)
         })
     }
     

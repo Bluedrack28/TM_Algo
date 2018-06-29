@@ -15,10 +15,10 @@ class Link {
         this.n1.applyForce(force.mult(-1))
     }
 
-    display(x){
+    display(x,shift){
         fill(0)
         strokeWeight(10)
-        line(this.n0.position.x-x+200,this.n0.position.y,this.n1.position.x-x+200,this.n1.position.y)
+        line(this.n0.position.x-x+shift,this.n0.position.y,this.n1.position.x-x+shift,this.n1.position.y)
     }
 
     getVector(){
@@ -30,7 +30,7 @@ class Link {
     }
 
     alterate(pourcent){
-        this.k = Logic.alterate(this.k,pourcent,2,3)
+        this.k = Logic.alterate(this.k,pourcent,3,4)
         this.l = Logic.alterate(this.l,pourcent,75,125)
     }
 }
