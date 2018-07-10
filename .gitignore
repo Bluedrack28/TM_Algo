@@ -3,3 +3,4 @@ src/test/*
 src/test
 node_modules
 srcp5/data/*
+server/data/*

@@ -1,7 +1,6 @@
 class Algorithm {
 
     constructor(size,clock,lim0,lim1){
-        console.log(this.shift)
         this.size = size
         this.clock = clock
         this.lim0 = lim0
@@ -44,21 +43,21 @@ class Algorithm {
         text('Previous best score:'+this.previousBestScore, 10, 60)
         text('Improvement:'+this.improvement, 10, 90)
         text(this.history, 10, 120)
-
+        //ellipse(100, 100, 100, 100)
         let x = this.pool[0].score()
         for (let i = 0; i < x+width; i+=50) {
             strokeWeight(0)
-            text(Math.floor(i),i-x+this.shift,height-100)
+            text(Math.floor(i),i-x+width/2,height-100)
             fill(0)
             strokeWeight(2)
-            line(i-x+this.shift,height,i-x+this.shift,height-100)
+            line(i-x+width/2,height,i-x+width/2,height-100)
         }
         for (let i = 0; i > x-width; i-=50) {
             strokeWeight(0)
-            text(abs(Math.floor(i)),i-x+this.shift,height-100)
+            text(abs(Math.floor(i)),i-x+width/2,height-100)
             fill(0)
             strokeWeight(2)
-            line(i-x+this.shift,height,i-x+this.shift,height-100)
+            line(i-x+width/2,height,i-x+width/2,height-100)
         }
 
         this.pool.forEach(creature => {
@@ -157,6 +156,7 @@ class Algorithm {
         let data = {}
         data.history = this.history
         data.bestCreatures = this.bestCreatures
-        saveJSON(data,`data-${year()}${month()}${day()}${hour()}${minute()}${second()}.json`)
+        return data
+        //saveJSON(data,`data-${year()}${month()}${day()}${hour()}${minute()}${second()}.json`)
     }
 }
