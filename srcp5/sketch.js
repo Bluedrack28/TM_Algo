@@ -1,6 +1,6 @@
 new p5();
 let date = new Date()
-let algo = new Algorithm(10,1000 ,0.25,0.5)
+let algo = new Algorithm(10,250 ,0.25,0.5)
 let cre = new Creature()
 cre.nodes = [
 	new Node(100,150,2,0),
@@ -26,7 +26,8 @@ cre.muscles = [
 cre = Creature.createRandomCreature()<
 algo.generatePool()
 function setup () {
-	createCanvas(640, 480)  
+	createCanvas(1000, 480)  
+	//algo.getData()
 }
 
 function draw () {

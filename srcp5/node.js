@@ -2,8 +2,9 @@
 class Node {
     
     constructor (x, y, m, mu) {
+        this.id = '_' + Math.random().toString(36).substr(2, 9)
         this.r = 4
-        this.originalPosition = createVector(x, y)
+        this.originalPosition = [x,y]
 		this.position = createVector(x, y)
 		this.velocity = createVector(0, 0)
         this.acceleration = createVector(0, 0)
@@ -66,8 +67,8 @@ class Node {
     }
     alterate(pourcent){
         this.position = createVector(
-            Logic.alterate(this.originalPosition.x,pourcent,50,250),
-            Logic.alterate(this.originalPosition.y,pourcent,50,250)
+            Logic.alterate(this.originalPosition[0],pourcent,-100,100),
+            Logic.alterate(this.originalPosition[1],pourcent,-100,100)
         )
         this.mass = Logic.alterate(this.mass,pourcent,9,10)
         this.mu = Logic.alterate(this.mu,pourcent,0.3,1)

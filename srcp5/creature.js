@@ -17,8 +17,8 @@ class Creature {
 
         for (let i = 0; i < 3; i++) {
             node = new Node(
-                random(50,250),
-                random(50,250),
+                random(-100,100),
+                random(-100,100),
                 random(9,10),
                 random(0.3,1)
             )
@@ -82,8 +82,11 @@ class Creature {
         this.nodes.forEach(node => {
             score += node.position.x
         });
+
         score /= this.nodes.length
         return score
+        
+        
     }   
 
     alterate(pourcent){
