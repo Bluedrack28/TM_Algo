@@ -21,3 +21,4 @@ https://stackoverflow.com/questions/728360/how-do-i-correctly-clone-a-javascript
 https://www.youtube.com/watch?v=nSxEeVqRxmY
 www.p5js.org
 https://medium.com/stackfame/get-list-of-all-files-in-a-directory-in-node-js-befd31677ec5
+https://codepen.io/KryptoniteDove/post/load-json-file-locally-using-pure-javascript
