@@ -43,12 +43,11 @@ class Algorithm {
         text('Previous best score:'+this.previousBestScore, 10, 60)
         text('Improvement:'+this.improvement, 10, 90)
         text(this.history, 10, 120)
-        //ellipse(100, 100, 100, 100)
         let x = this.pool[0].score()
         for (let i = 0; i < x+width; i+=50) {
             strokeWeight(0)
             text(Math.floor(i),i-x+width/2,height-100)
-            fill(0)
+            stroke(0)
             strokeWeight(2)
             line(i-x+width/2,height,i-x+width/2,height-100)
         }
@@ -90,43 +89,43 @@ class Algorithm {
             let baseNode = {
                 id: node.id,
                 r: node.r,
-                originalPosition: [node.originalPosition[0],node.originalPosition[1]],
+                position: [node.originalPosition[0],node.originalPosition[1]],
                 mass: node.mass,
                 mu: node.mu,
             }
             baseNodes.push(baseNode)
         });
         creature.links.forEach(link => {
-            let n0Base
-            let n1Base
+            let baseN0
+            let baseN1
             baseNodes.forEach(node => {
                 if(link.n0.id == node.id) {
-                    n0Base = node.id
+                    baseN0 = node.id
                 } else if (link.n1.id == node.id){
-                    n1Base = node.id   
+                    baseN1 = node.id   
                 }
             });
             let baseLink = {
-                n0:n0Base,
-                n1: n1Base,
+                n0: baseN0,
+                n1: baseN1,
                 k: link.k,
                 l: link.l
             }
             baseLinks.push(baseLink)
         });
         creature.muscles.forEach(muscle => {
-            let n0Base
-            let n1Base
+            let baseN0
+            let baseN1
             baseNodes.forEach(node => {
                 if(muscle.n0.id == node.id) {
-                    n0Base = node.id
+                    baseN0 = node.id
                 } else if (muscle.n1.id == node.id){
-                    n1Base = node.id
+                    baseN1 = node.id
                 }
             });
             let baseMuscle = {
-                n0: n0Base,
-                n1: n1Base,
+                n0: baseN0,
+                n1: baseN1,
                 t0: muscle.t0,
                 t1: muscle.t1,
                 power: muscle.power
@@ -156,7 +155,44 @@ class Algorithm {
         let data = {}
         data.history = this.history
         data.bestCreatures = this.bestCreatures
+        data.generation = this.generation
         return data
-        //saveJSON(data,`data-${year()}${month()}${day()}${hour()}${minute()}${second()}.json`)
+    }
+
+    loadJSON(json){
+        let data = JSON.parse(json)
+        let pool = []
+        data.bestCreatures.forEach(creature => {
+            let c = new Creature()
+            creature.nodes.forEach(node => {
+                c.nodes.push(
+                    new Node(
+                        node.position.x,
+                        node.position.y,
+                        node.mass,
+                        node.mu
+                    ))
+            })
+            creature.links.forEach(link => {
+                let n0, n1
+                c.nodes.forEach(node => {
+                    if(link.n0.id === node.id) n0 = node
+                    if(link.n1.id === node.id) n1 = node
+                });
+                let l = new Link(n0,n1,link.k,link.l)
+                c.links.push(l)
+            })
+            creature.links.forEach(muscle => {
+                let n0, n1
+                c.nodes.forEach(node => {
+                    if(muscle.n0.id === node.id) n0 = node
+                    if(muscle.n1.id === node.id) n1 = node
+                });
+                let m = new Muscle(n0,n1,muscle.t0,muscle.t1,muscle.power)
+                c.links.push(m)
+            })
+            pool.push(creature)
+        });
+        this.pool = pool
     }
 }

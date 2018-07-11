@@ -16,9 +16,9 @@ class Link {
     }
 
     display(x,shift){
-        fill(0)
-        strokeWeight(10)
-        line(this.n0.position.x-x+shift,this.n0.position.y,this.n1.position.x-x+shift,this.n1.position.y)
+        //fill(0)
+        //strokeWeight(10)
+        //line(this.n0.position.x-x+shift,this.n0.position.y,this.n1.position.x-x+shift,this.n1.position.y)
     }
 
     getVector(){

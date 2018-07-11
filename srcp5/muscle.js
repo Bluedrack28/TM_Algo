@@ -11,7 +11,7 @@ class Muscle {
 
 	update(){
 		
-		if(this.t0 > this.clock && this.t1 > this.clock){
+		if(this.active()){
 			let v = this.getVectorUnit()
 			let force = v.mult(this.power)
 			this.n1.applyForce(force)
@@ -21,10 +21,21 @@ class Muscle {
 		this.clock += 1
 		if(this.clock >= 100) this.clock = 0
 	}
+	
+	active(){
+		if(this.t0 > this.clock && this.t1 > this.clock) {
+			return true
+		}
+		return false
+	}
 
 	display(x,shift){
 		strokeWeight(10)
-		fill(10,10,10)
+		if(this.active()){
+			stroke(125,0,0)
+		} else {
+			stroke(0,0,0)
+		}
 		line(this.n0.position.x-x+shift,this.n0.position.y,this.n1.position.x-x+shift,this.n1.position.y)
 	}
 

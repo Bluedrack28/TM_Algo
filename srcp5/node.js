@@ -33,10 +33,12 @@ class Node {
 	display (x,shift) {
 		stroke(0)
         strokeWeight(2)
-		fill(this.mu*255)
+        colorMode(HSB)
+        fill(54,this.mu*100,100)
+        colorMode(RGB)
+
 		ellipse(this.position.x-x+shift, this.position.y, this.mass * this.r, this.mass * this.r)
     }
-
     generateContact(nx,ny){
         let vNormal, fNormal, fx, fy
         let vx = this.velocity.x

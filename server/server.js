@@ -3,7 +3,7 @@ let io = require('socket.io')(server);
 let fs = require('fs')
 console.log('Dependencies Loaded')
 
-function formattedDate(d = new Date) {
+function formattedDate(d = new Date()) {
     let year = String(d.getFullYear())
     let month = String(d.getMonth() + 1)
     let day = String(d.getDate())
