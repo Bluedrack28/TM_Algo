@@ -108,4 +108,36 @@ class Creature {
         nodes = this.nodes
         return new Creature(nodes,links,muscles)
     }
+    
+    getClone() {
+        let nodes = []
+        let muscles = []
+        let links = []
+        this.nodes.forEach(node => {
+            let cloneNode = new Node(node.x,node.y,node.mass,node.mu)
+            cloneNode.originalPosition = node.originalPosition
+            cloneNode.id = node.id
+            nodes.push(cloneNode)
+        })
+        this.muscles.forEach(muscle => {
+            let n0, n1
+            nodes.forEach(node => {
+                if(muscle.n0.id === node.id) n0 = node
+                if(muscle.n1.id === node.id) n1 = node
+            });
+            let cloneMuscle = new Muscle(n0,n1,muscle.t0,muscle.t1,muscle.power)
+            muscles.push(cloneMuscle)
+        })
+        this.links.forEach(link => {
+            let n0, n1
+                nodes.forEach(node => {
+                    if(link.n0.id === node.id) n0 = node
+                    if(link.n1.id === node.id) n1 = node
+                });
+            let cloneLink = new Link(n0,n1,link.k,link.l)
+            links.push(cloneLink)
+        })
+        let creature = new Creature(nodes,links,muscles)
+        return creature
+    }
 }

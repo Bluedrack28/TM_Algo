@@ -1,14 +1,14 @@
 
 class Node {
     
-    constructor (x, y, m, mu) {
+    constructor (x, y, mass, mu) {
         this.id = '_' + Math.random().toString(36).substr(2, 9)
         this.r = 4
         this.originalPosition = [x,y]
 		this.position = createVector(x, y)
 		this.velocity = createVector(0, 0)
         this.acceleration = createVector(0, 0)
-        this.mass = m
+        this.mass = mass
         this.mu = mu
 	}
 	applyForce (force) {
@@ -36,7 +36,6 @@ class Node {
         colorMode(HSB)
         fill(54,this.mu*100,100)
         colorMode(RGB)
-
 		ellipse(this.position.x-x+shift, this.position.y, this.mass * this.r, this.mass * this.r)
     }
     generateContact(nx,ny){

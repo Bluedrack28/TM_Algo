@@ -71,14 +71,29 @@ class Algorithm {
         this.previousBestScore = abs(Math.floor(this.pool[0].score()))
         this.bestCreatures.push(this.returnBaseCreature(this.pool[0]))
         this.history.push(this.previousBestScore)
+
         if(this.generation > 1){
             let a = this.history[this.history.length-1],
                 b = this.history[this.history.length-2]
             this.improvement = a - b
         }
+
+        let newPool = []
+        for (let i = 0; i < this.pool.length; i++) {
+            if(i < 0.5 * this.pool.length){
+                newPool.push(this.pool[i].alterate(0))
+                let clone = this.pool[1].getClone()
+                newPool.push(clone.alterate(0.2))
+            }
+            
+        }
+        console.log(this.generation)
+        this.pool = newPool
+        /*
         this.pool.forEach((creature,index) => {
             creature.alterate(this.pourcentAlterate(index))
         });
+        */
     }
 
     returnBaseCreature(creature){
@@ -156,6 +171,8 @@ class Algorithm {
         data.history = this.history
         data.bestCreatures = this.bestCreatures
         data.generation = this.generation
+        data.clock = this.clock
+        data.size = this.size
         return data
     }
 
