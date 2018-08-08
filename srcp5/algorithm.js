@@ -1,10 +1,8 @@
 class Algorithm {
 
-    constructor(size,clock,lim0,lim1){
+    constructor(size,clock){
         this.size = size
         this.clock = clock
-        this.lim0 = lim0
-        this.lim1 = lim1
         this.previousBestScore = 0
         this.history = []
         this.bestCreatures = []
@@ -16,6 +14,14 @@ class Algorithm {
 
 
     generatePool(){
+        this.generation = 0
+        this.history = []
+        this.previousBestScore = 0
+        this.bestCreatures = []
+        this.bestCreature = null
+        this.improvement = 0
+        this.time = 0
+        this.generation = 0
         this.pool = []
         for (let i = 0; i < this.size; i++) {
             this.pool.push(Creature.createRandomCreature())
@@ -70,6 +76,10 @@ class Algorithm {
         this.result()
         this.previousBestScore = abs(Math.floor(this.pool[0].score()))
         this.bestCreatures.push(this.returnBaseCreature(this.pool[0]))
+        if(this.bestCreature === null || this.pool[0].score() > this.bestCreature.score ){
+            this.bestCreature = this.returnBaseCreature(this.pool[0])
+            this.bestCreature.score = this.pool[0].score()
+        }
         this.history.push(this.previousBestScore)
 
         if(this.generation > 1){
@@ -80,20 +90,19 @@ class Algorithm {
 
         let newPool = []
         for (let i = 0; i < this.pool.length; i++) {
-            if(i < 0.5 * this.pool.length){
+            if(i < 0.25 * this.pool.length){
                 newPool.push(this.pool[i].alterate(0))
                 let clone = this.pool[1].getClone()
                 newPool.push(clone.alterate(0.2))
+            }else {
+                if(newPool.length < this.pool.length){
+                    newPool.push(Creature.createRandomCreature())
+                }
             }
             
         }
         console.log(this.generation)
         this.pool = newPool
-        /*
-        this.pool.forEach((creature,index) => {
-            creature.alterate(this.pourcentAlterate(index))
-        });
-        */
     }
 
     returnBaseCreature(creature){
@@ -169,7 +178,8 @@ class Algorithm {
     getData(){
         let data = {}
         data.history = this.history
-        data.bestCreatures = this.bestCreatures
+        //data.bestCreatures = this.bestCreatures
+        data.bestCreature = this.bestCreature
         data.generation = this.generation
         data.clock = this.clock
         data.size = this.size

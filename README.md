@@ -22,3 +22,4 @@ https://www.youtube.com/watch?v=nSxEeVqRxmY
 www.p5js.org
 https://medium.com/stackfame/get-list-of-all-files-in-a-directory-in-node-js-befd31677ec5
 https://codepen.io/KryptoniteDove/post/load-json-file-locally-using-pure-javascript
+https://stackoverflow.com/questions/13696148/node-js-create-folder-or-use-existing
