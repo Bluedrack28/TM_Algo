@@ -1,26 +1,8 @@
-var ctx = document.getElementById('myChart').getContext('2d');
+
 let datasJSON = []
-/*
-var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'line',
-
-    // The data for our dataset
-    data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [{
-            label: "My First dataset",
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45],
-        }]
-    },
-
-    // Configuration options go here
-    options: {}
-});
-*/
 function update(files){
+
+        
     datasJSON = []
     var reader = new FileReader();
     function setup_reader(file) {
@@ -42,6 +24,16 @@ function update(files){
 }
 
 function makeChart(){
+    
+    let div = document.getElementById('chart')
+    let canvas = document.createElement('canvas')
+    div.appendChild(canvas)
+    let ctx = canvas.getContext('2d')
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let chart = null
+    if(chart){
+        chart = null
+    }
     if(datasJSON.length > 0){
         let chartData = {}
         chartData.labels = []
@@ -61,7 +53,7 @@ function makeChart(){
         });
 
 
-        var chart = new Chart(ctx, {
+        let chart = new Chart(ctx, {
             // The type of chart we want to create
             type: 'line',
         

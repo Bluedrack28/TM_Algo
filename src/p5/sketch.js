@@ -7,15 +7,17 @@ let end = false
 
 algo.generatePool()
 function setup () {
-	createCanvas(1000, 480)
+	let canvas = createCanvas(1000, 480)
+	canvas.parent('container');
+	console.log(canvas)
 }
 
 function draw () {
 	background(255)
 	
-	if(!end){
+	/*if(!end){
 		runAlgo(1,100)
-	}
+	}*/
 	
 	algo.update()
 	algo.display()
