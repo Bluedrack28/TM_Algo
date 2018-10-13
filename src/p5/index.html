@@ -1,6 +1,53 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+    </head>
+    <body>
+        <div class="navbar navbar-dark bg-dark">
+            <ul class="navbar-nav bd-navbar-nav flex-row">
+            <li class="nav-item">
+                <a class="nav-link active" href="/">Page d'accueil</a>
+            </li>
+        </div>
+        <div class="container">
+                
+                    
+                <div id="container"></div>
+                <div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Nombre de créatures</span>
+                        </div>
+                        <input id="nbrCreature" type="text" class="form-control" placeholder="Par défault: 20" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Durée de vie d'une génération</span>
+                        </div>
+                        <input id="duration" type="text" class="form-control" placeholder="Par défault: 5000"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div>
+                        <div id="alert" style="display: none" class="alert alert-success" role="alert">
+                            Les données ont bien été envoyées
+                        </div>
+                        <button class="btn btn-primary" id="reboot">Relancer la simulation</button>
+                        <button class="btn btn-primary" id="send">Envoyer les données obtenues</button>
+                    </div>
+                    
+                    <h1 class="h1">Lancer une nouvelle série rapidement</h1>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Nombre de génération</span>
+                        </div>
+                        <input id="nbrGeneration" type="text" class="form-control" placeholder="Par défault: 5000"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <button class="btn btn-success" id="run">Lancer</button>
+                    
+                </div>
+
+        </div>
         <script src="node_modules/socket.io-client/dist/socket.io.js"></script>
         <script src="p5.js"></script>
         <script src="logic.js"></script>
@@ -10,15 +57,5 @@
         <script src="creature.js"></script>
         <script src="algorithm.js"></script>
         <script src="sketch.js"></script>
-    </head>
-    <body>
-        <div id="container"></div>
-        <div>
-            <H1>Lancer une nouvelle série </H1>
-            <span>Nombre d'individus</span><input type="number">
-            <span>Nombre de génération</span>
-            <button>Lancer</button>
-        </div>
-       
     </body>
 </html>

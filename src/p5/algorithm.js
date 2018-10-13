@@ -45,9 +45,9 @@ class Algorithm {
         strokeWeight(0)
         fill(0)
         textSize(16)
-        text('Generation:'+this.generation, 10, 30)
-        text('Previous best score:'+this.previousBestScore, 10, 60)
-        text('Improvement:'+this.improvement, 10, 90)
+        text('Génération numéro: '+this.generation, 10, 30)
+        text('Meilleur score précedent: '+this.previousBestScore, 10, 60)
+        text('Amélioration: '+this.improvement, 10, 90)
         text(this.history, 10, 120)
         let x = this.pool[0].score()
         for (let i = 0; i < x+width; i+=50) {

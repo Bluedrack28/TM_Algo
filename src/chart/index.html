@@ -1,16 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=2, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Analyse de données</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </head>
 <body>
-    <div id="chart"></div>
-    <input type="file" id="datas" multiple size="50" name="filesx[]" onchange="update(this.files)">
-    <button onclick="makeChart()">Créer le graphique</button>
-    <script src="script.js"></script>
+    <div class="navbar navbar-dark bg-dark">
+        <ul class="navbar-nav bd-navbar-nav flex-row">
+        <li class="nav-item">
+            <a class="nav-link active" href="/">Page d'accueil</a>
+        </li>
+    </div>
+    <div class="container">
+            <div id="chart"></div>
+
+            <div class="input-group">
+                <div class="custom-file">
+                <input type="file" id="datas" multiple size="50" name="filesx[]" onchange="update(this.files)" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                <label class="custom-file-label" for="inputGroupFile04">Choisir les fichers</label>
+                </div>
+                <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04" onclick="makeChart()">Créer le graphique</button>
+            </div>
+        <!-- <input type="file" id="datas" multiple size="50" name="filesx[]" onchange="update(this.files)">
+        <button onclick="makeChart()">Créer le graphique</button> -->
+            <script src="script.js"></script>
+    </div>
 </body>
 </html>

@@ -1,7 +1,6 @@
 let server = require('http').createServer();
 let io = require('socket.io')(server);
 let fs = require('fs')
-const path = require('path')
 console.log('Dependencies Loaded')
 
 function formattedDate(d = new Date()) {
@@ -16,7 +15,7 @@ function formattedDate(d = new Date()) {
     if (minute.length < 2) minute = '0' + minute
 
     return `${year}${month}${day}${hour}${minute}`;
-  }
+}
 
 io.on('connection',function(client){
     

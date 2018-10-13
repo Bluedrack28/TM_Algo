@@ -35,7 +35,7 @@ stopRestartB.addEventListener('click', ()=> {
 startB.addEventListener('click', () => {
     algo.init(document.getElementById('nbr').value)
 })
-
+/*
 resultB.addEventListener('click', () => {
     draws = true
     console.log(algo.result())
@@ -43,5 +43,5 @@ resultB.addEventListener('click', () => {
 alterateB.addEventListener('click',()=>{
     console.log(algo.newGeneration())
 })
-
+*/
 loop()

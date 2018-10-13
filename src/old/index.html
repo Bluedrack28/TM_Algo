@@ -4,25 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css">
-    <title>Test</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+    <title>Première version du TM</title>
 </head>
 <body>
-    <div >
+    <div class="navbar navbar-dark bg-dark">
+        <ul class="navbar-nav bd-navbar-nav flex-row">
+        <li class="nav-item">
+            <a class="nav-link active" href="/">Page d'accueil</a>
+        </li>
+    </div>
+    <div class="container">
+            
         <div>
             <canvas height="500" width="1000" id='canvas'></canvas>
         </div>
         <div class="buttons">
-            <div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Nombre de créature</span>
+                </div>
+                <input id="nbr" type="text" class="form-control" value="20" placeholder="Par défault: 20" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+            <!-- <div>
                 <span class="span">Nombre de créature : </span>
                 <input class="input" type="text" name="Salut" id="nbr">
                 
-            </div>
+            </div> -->
             <div>
-                <button class="button" id='start'>Start</button>
-                <button class="button" id='stop'>Stop</button>
-                <button class="button" id='result'>Result</button>
-                <button class="button" id='alterate'>Alterate</button>        
+                <button class="btn btn-primary"id='start'>Start</button>
+                <button class="btn btn-primary" id='stop'>Stop</button>
+                <!-- <button class="button" id='result'>Result</button>
+                <button class="button" id='alterate'>Alterate</button>         -->
             </div>
         </div>
         

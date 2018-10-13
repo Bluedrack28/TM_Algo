@@ -9,20 +9,13 @@ algo.generatePool()
 function setup () {
 	let canvas = createCanvas(1000, 480)
 	canvas.parent('container');
-	console.log(canvas)
+	//console.log(canvas)
 }
 
 function draw () {
-	background(255)
-	
-	/*if(!end){
-		runAlgo(1,100)
-	}*/
-	
+	background(255)	
 	algo.update()
 	algo.display()
-	
-	
 }
 function runAlgo(nbrRun,nbrGeneration){
 	
@@ -43,6 +36,24 @@ function runAlgo(nbrRun,nbrGeneration){
 	end = true
 	
 }
+document.getElementById('reboot').addEventListener('click',()=>{
+	algo = new Algorithm(
+		document.getElementById('nbrCreature').value,
+		document.getElementById('duration').value
+	)
+	algo.generatePool()
+})
+document.getElementById('send').addEventListener('click',()=>{
+	socket.emit('data',algo.getData())
+	console.log('Datas emited')
+})
+socket.on('success',()=>{
+	console.log('success')
+	document.getElementById('alert').style.display = "block"
+})
+document.getElementById('run').addEventListener('click',()=>{
+	runAlgo(1,document.getElementById('nbrGeneration').value)
+})
 function keyTyped(){
 	if(key === 's'){
 		socket.emit('data',algo.getData());
