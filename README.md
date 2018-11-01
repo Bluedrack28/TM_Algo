@@ -24,3 +24,8 @@ https://medium.com/stackfame/get-list-of-all-files-in-a-directory-in-node-js-bef
 https://codepen.io/KryptoniteDove/post/load-json-file-locally-using-pure-javascript
 https://stackoverflow.com/questions/13696148/node-js-create-folder-or-use-existing
 https://stackoverflow.com/questions/6084360/using-node-js-as-a-simple-web-server
+https://fr.wikipedia.org/wiki/Interface_de_programmation
+https://fr.wikipedia.org/wiki/Git
+http://www.chartjs.org/
+https://socket.io/
+https://nodejs.org/fr/
