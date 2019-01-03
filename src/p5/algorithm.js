@@ -45,29 +45,51 @@ class Algorithm {
         strokeWeight(0)
         fill(0)
         textSize(16)
+        textAlign(LEFT)
         text('Génération numéro: '+this.generation, 10, 30)
-        text('Meilleur score précedent: '+this.previousBestScore, 10, 60)
+        text('Meilleure créature de la génération précédente: '+this.previousBestScore, 10, 60)
         text('Amélioration: '+this.improvement, 10, 90)
-        text(this.history, 10, 120)
+        if(this.history.length) text("Historique : "+ this.history.slice(-10) , 10, 120)
         let x = this.pool[0].score()
-        for (let i = 0; i < x+width; i+=50) {
-            strokeWeight(0)
-            text(Math.floor(i),i-x+width/2,height-100)
-            stroke(0)
-            strokeWeight(2)
-            line(i-x+width/2,height,i-x+width/2,height-100)
-        }
-        for (let i = 0; i > x-width; i-=50) {
-            strokeWeight(0)
-            text(abs(Math.floor(i)),i-x+width/2,height-100)
-            fill(0)
-            strokeWeight(2)
-            line(i-x+width/2,height,i-x+width/2,height-100)
-        }
+        textAlign(CENTER)
+        for (let i = 0; i < x+width; i+=25) {
+            if(i % 100 == 0){
+                strokeWeight(0)
+                text(Math.floor(i),i-x+width/2,height-105)
+                stroke(0)
+                strokeWeight(2.4)
+                line(i-x+width/2,height,i-x+width/2,height-100)
+            }else if(i % 50 == 0){
+                strokeWeight(2)
+                line(i-x+width/2,height,i-x+width/2,height-35)
+            } else {
+                strokeWeight(2)
+                line(i-x+width/2,height,i-x+width/2,height-25)
 
+            }
+        }
+        for (let i = 0; i > x-width; i-=25) {
+            
+            if(i % 100 == 0){
+                strokeWeight(0)
+                text(abs(Math.floor(i)),i-x+width/2,height-105)
+                fill(0)
+                strokeWeight(2.4)
+                line(i-x+width/2,height,i-x+width/2,height-100)
+            }else if(i % 50 == 0){
+                strokeWeight(2)
+                line(i-x+width/2,height,i-x+width/2,height-35)
+            } else {
+                strokeWeight(2)
+                line(i-x+width/2,height,i-x+width/2,height-25)
+
+            }
+            
+        }
         this.pool.forEach(creature => {
             creature.display(x,width/2)
         });
+        
     }
 
     nextGeneration(){
@@ -76,10 +98,12 @@ class Algorithm {
         this.result()
         this.previousBestScore = abs(Math.floor(this.pool[0].score()))
         this.bestCreatures.push(this.returnBaseCreature(this.pool[0]))
+
         if(this.bestCreature === null || this.pool[0].score() > this.bestCreature.score ){
             this.bestCreature = this.returnBaseCreature(this.pool[0])
             this.bestCreature.score = this.pool[0].score()
         }
+
         this.history.push(this.previousBestScore)
 
         if(this.generation > 1){
@@ -89,10 +113,86 @@ class Algorithm {
         }
 
         let newPool = []
+
+        for(let i = 0; i < this.pool.length; i++){
+
+            for(let j = i+1; j < this.pool.length; j++){
+                if(random() < 0.6){
+                    let cre1 = this.pool[i]
+                    let cre2 = this.pool[j]
+    
+                    let newMuscles = []
+                    let newLinks = []
+                    let newNodes = []
+                    cre1.nodes.forEach(node => {
+                        if(random() > 0.6){
+                            newNodes.push(new Node(
+                                node.originalPosition[0],
+                                node.originalPosition[1],
+                                node.mass,
+                                node.mu
+                            ))
+                            newNodes.id = node.id
+                        }
+                    });
+                    cre2.nodes.forEach(node => {
+                        if(newNodes.length < 3){
+                            newNodes.push(new Node(
+                                node.originalPosition[0],
+                                node.originalPosition[1],
+                                node.mass,
+                                node.mu
+                            ))
+                            newNodes.id = node.id
+                        }
+                    });
+                    cre1.muscles.forEach(muscle => {
+                        for (let i = 0; i < 3; i++) {
+                            if(random() > 0.6){
+                                newMuscles[i] = new Muscle(newNodes[i],newNodes[(i+1)%3],muscle.t0,muscle.t1,muscle.power)
+                            }
+                        }
+                        
+                    });
+                    cre1.links.forEach(link => {
+                        for (let i = 0; i < 3; i++) {
+                            if(random() > 0.6){
+                                newLinks[i] = new Link(newNodes[i],newNodes[(i+1)%3],link.k,link.l)
+                            }
+                        }
+                    });
+                    
+                    cre2.muscles.forEach(muscle => {
+                        for (let i = 0; i < 3; i++) {
+                            if(newMuscles[i] == null){
+                                newMuscles[i] = new Muscle(newNodes[i],newNodes[(i+1)%3],muscle.t0,muscle.t1,muscle.power)
+                            }
+                        }
+                    });
+                    cre2.links.forEach(link => {
+                        for (let i = 0; i < 3; i++) {
+                            if(newLinks[i] == null){
+                                newLinks[i] = new Link(newNodes[i],newNodes[(i+1)%3],link.k,link.l)
+                            }
+                        }
+                    });
+                    
+                    let newCre = new Creature(newNodes,newLinks,newMuscles)
+                    newCre.alterate(0.001)
+                    newPool.push(newCre)
+                    if(newPool.length == this.size ) break;
+                }
+            }
+            if(newPool.length == this.size ) break;
+        }
+
+
+        /*
+
         for (let i = 0; i < this.pool.length; i++) {
             if(i < 0.25 * this.pool.length){
                 newPool.push(this.pool[i].alterate(0))
-                let clone = this.pool[1].getClone()
+                let clone = this.pool[i].getClone()
                 newPool.push(clone.alterate(0.2))
             }else {
                 if(newPool.length < this.pool.length){
@@ -101,6 +201,7 @@ class Algorithm {
             }
             
         }
+        */
         console.log(this.generation)
         this.pool = newPool
     }

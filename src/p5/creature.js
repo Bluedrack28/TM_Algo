@@ -19,7 +19,7 @@ class Creature {
             node = new Node(
                 random(-100,100),
                 random(-100,100),
-                random(9,10),
+                random(7,14),
                 random(0.3,1)
             )
             nodes.push(node)
@@ -41,7 +41,7 @@ class Creature {
                         nodes[j+1],
                         random(0,100),
                         random(0,100),
-                        random(0,100)
+                        random(75,125)
                     )
                     muscles.push(muscle)
                 }

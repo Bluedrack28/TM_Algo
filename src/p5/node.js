@@ -33,8 +33,8 @@ class Node {
 	display (x,shift) {
 		stroke(0)
         strokeWeight(2)
-        colorMode(HSB)
-        fill(54,this.mu*100,100)
+        //colorMode(HSB)
+        fill(255,255,255*this.mu)
         colorMode(RGB)
 		ellipse(this.position.x-x+shift, this.position.y, this.mass * this.r, this.mass * this.r)
     }

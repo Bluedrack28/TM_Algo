@@ -1,17 +1,22 @@
 # Projet de travail de Maturité
 
+# Mise en route du serveur
 
-# A faire 
+##Prérequis
 
-Titre et descriptif 
+´nodejs´
 
 
-Graphiques 
-# Descritif
-sous-titre questions à resoudre, etc.
+##Commandes
 
-#Problème en cours
-Les muscles et la répartition des forces appliqués sur le Objet devrait être revue entièrement.
+Depuis le dossier git :
+´cd src/server´
+´npm install´
+´node index.js <port>´
+
+Ensuite, utilisé le navigateur est allé à l'une des URL suivante :
+´localhost:8888´ ou ´localhost:<port>´ si vous avez indiqué un port spécifique
+´127.0.0.1:8888´ ou ´127.0.0.1:<port>´ si vous avez indiqué un port spécifique
 
 # Reference
 https://stackoverflow.com/questions/5767325/how-do-i-remove-a-particular-element-from-an-array-in-javascript
@@ -30,3 +35,4 @@ http://www.chartjs.org/
 https://socket.io/
 https://nodejs.org/fr/
 https://getbootstrap.com/
+https://fr.wikipedia.org/wiki/Algorithme_génétique

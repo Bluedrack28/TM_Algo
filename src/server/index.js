@@ -59,7 +59,7 @@ http.createServer(function(request, response) {
 }).listen(parseInt(port, 10));
 
 io.on('connection',function(client){
-    
+    console.log('client connect')
     client.on('event',function(date){});
     client.on('disconnect',function(){});
     client.on('data',(data)=>{

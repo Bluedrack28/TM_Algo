@@ -30,13 +30,13 @@ class Muscle {
 	}
 
 	display(x,shift){
-		strokeWeight(10)
 		if(this.active()){
-			stroke(125,0,0)
+			stroke("#cb3737")
+			strokeWeight(20*75/this.power)
+			line(this.n0.position.x-x+shift,this.n0.position.y,this.n1.position.x-x+shift,this.n1.position.y)
 		} else {
 			stroke(0,0,0)
 		}
-		line(this.n0.position.x-x+shift,this.n0.position.y,this.n1.position.x-x+shift,this.n1.position.y)
 	}
 
 	getVector(){
@@ -50,6 +50,6 @@ class Muscle {
 	alterate(pourcent){
 		this.t0 = Logic.alterate(this.t0,pourcent,0,100)
 		this.t1 = Logic.alterate(this.t1,pourcent,0,100)
-		this.power = Logic.alterate(this.power,pourcent,90,100)
+		this.power = Logic.alterate(this.power,pourcent,75,125)
 	}
 }

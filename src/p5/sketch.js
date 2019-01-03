@@ -17,18 +17,21 @@ function draw () {
 	algo.update()
 	algo.display()
 }
-function runAlgo(nbrRun,nbrGeneration){
-	
+function runAlgo(nbrGeneration){
+	let nbrRun = 1
 	for (let i = 0; i < nbrRun; i++) {
 		algo.generatePool()
-		console.log('Run number: '+ i)
 		end = false
 		while(!end){
 			algo.update()
 			if(algo.generation == nbrGeneration){
+				
 				socket.emit('data',algo.getData())
-				console.log(algo.getData())
-				console.log('Data emitted')
+				socket.on('success',()=>{
+					console.log(algo.getData())
+					console.log('Data emitted')
+				})
+				
 				end = true
 			}
 		}
@@ -37,10 +40,11 @@ function runAlgo(nbrRun,nbrGeneration){
 	
 }
 document.getElementById('reboot').addEventListener('click',()=>{
-	algo = new Algorithm(
-		document.getElementById('nbrCreature').value,
-		document.getElementById('duration').value
-	)
+	let nbrCreature = document.getElementById('nbrCreature').value
+	let duration = document.getElementById('duration').value
+	if(duration != "" && nbrCreature != ""){
+		algo = new Algorithm(nbrCreature,duration)
+	}
 	algo.generatePool()
 })
 document.getElementById('send').addEventListener('click',()=>{
@@ -52,7 +56,14 @@ socket.on('success',()=>{
 	document.getElementById('alert').style.display = "block"
 })
 document.getElementById('run').addEventListener('click',()=>{
-	runAlgo(1,document.getElementById('nbrGeneration').value)
+	let nbrGeneration = document.getElementById('nbrGeneration').value
+	if (nbrGeneration != ""){
+		runAlgo(nbrGeneration)
+	} else {
+		runAlgo(50)
+	}
+
+	
 })
 function keyTyped(){
 	if(key === 's'){
