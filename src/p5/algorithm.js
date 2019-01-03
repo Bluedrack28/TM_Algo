@@ -49,7 +49,7 @@ class Algorithm {
         text('Génération numéro: '+this.generation, 10, 30)
         text('Meilleure créature de la génération précédente: '+this.previousBestScore, 10, 60)
         text('Amélioration: '+this.improvement, 10, 90)
-        if(this.history.length) text("Historique : "+ this.history.slice(-10) , 10, 120)
+        if(this.history.length) text("Historique: "+ this.history.slice(-10) , 10, 120)
         let x = this.pool[0].score()
         textAlign(CENTER)
         for (let i = 0; i < x+width; i+=25) {
@@ -117,7 +117,7 @@ class Algorithm {
         for(let i = 0; i < this.pool.length; i++){
 
             for(let j = i+1; j < this.pool.length; j++){
-                if(random() < 0.6){
+                if(random() < 0.4){
                     let cre1 = this.pool[i]
                     let cre2 = this.pool[j]
     

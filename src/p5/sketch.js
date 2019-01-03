@@ -25,8 +25,11 @@ function runAlgo(nbrGeneration){
 		while(!end){
 			algo.update()
 			if(algo.generation == nbrGeneration){
+				let data = algo.getData()
 				
-				socket.emit('data',algo.getData())
+				socket.connect()
+				socket.emit('data',data)
+				
 				socket.on('success',()=>{
 					console.log(algo.getData())
 					console.log('Data emitted')
@@ -51,13 +54,19 @@ document.getElementById('send').addEventListener('click',()=>{
 	socket.emit('data',algo.getData())
 	console.log('Datas emited')
 })
-socket.on('success',()=>{
+socket.on('success',()=> {
 	console.log('success')
 	document.getElementById('alert').style.display = "block"
 })
 document.getElementById('run').addEventListener('click',()=>{
 	let nbrGeneration = document.getElementById('nbrGeneration').value
 	if (nbrGeneration != ""){
+		let nbrCreature = document.getElementById('nbrCreature').value
+		let duration = document.getElementById('duration').value
+		if(duration != "" && nbrCreature != ""){
+			algo = new Algorithm(nbrCreature,duration)
+		}
+		algo.generatePool()
 		runAlgo(nbrGeneration)
 	} else {
 		runAlgo(50)

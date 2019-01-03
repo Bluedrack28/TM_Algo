@@ -71,7 +71,7 @@ class Node {
             Logic.alterate(this.originalPosition[0],pourcent,-100,100),
             Logic.alterate(this.originalPosition[1],pourcent,-100,100)
         )
-        this.mass = Logic.alterate(this.mass,pourcent,9,10)
-        this.mu = Logic.alterate(this.mu,pourcent,0.3,1)
+        this.mass = Logic.alterate(this.mass,pourcent,7,14)
+        this.mu = Logic.alterate(this.mu,pourcent,0,1)
     }
 }
