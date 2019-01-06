@@ -43,9 +43,9 @@ function runAlgo(nbrGeneration){
 	
 }
 document.getElementById('reboot').addEventListener('click',()=>{
-	let nbrCreature = document.getElementById('nbrCreature').value
-	let duration = document.getElementById('duration').value
-	if(duration != "" && nbrCreature != ""){
+	let nbrCreature = document.getElementById('nbrCreature').value || 20
+	let duration = document.getElementById('duration').value || 5000
+	if(duration != "" || nbrCreature != ""){
 		algo = new Algorithm(nbrCreature,duration)
 	}
 	algo.generatePool()

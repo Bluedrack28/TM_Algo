@@ -22,7 +22,7 @@ Ensuite, utilisé le navigateur est allé à l'une des URL suivante :
 
 `127.0.0.1:8888` ou `127.0.0.1:<port>` si vous avez indiqué un port spécifique
 
-# Reference
+# Réference
 https://stackoverflow.com/questions/5767325/how-do-i-remove-a-particular-element-from-an-array-in-javascript
 https://stackoverflow.com/questions/24812930/how-to-remove-element-from-array-in-foreach-loop
 https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Array/sort
