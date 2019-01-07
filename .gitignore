@@ -1,5 +1,4 @@
 .vscode
 node_modules
-src/p5/data/*
 src/server/data/*
 .~*
